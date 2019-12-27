@@ -22,5 +22,5 @@ data class Exercise(
     val exerciseNumber: Int,
     val title: String,
     val description: String,
-    val isCompleted: Boolean
+    val isCompleted: Boolean = false
 )
