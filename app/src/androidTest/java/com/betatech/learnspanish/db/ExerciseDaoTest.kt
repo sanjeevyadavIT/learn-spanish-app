@@ -1,27 +1,29 @@
-package com.betatech.learnspanish
+package com.betatech.learnspanish.db
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.betatech.learnspanish.data.local.db.AppDatabase
 import com.betatech.learnspanish.data.local.db.dao.ExerciseDao
 import com.betatech.learnspanish.data.model.db.Exercise
+import com.betatech.learnspanish.util.LiveDataTestUtil.getValue
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
 import java.lang.Exception
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 
 @RunWith(AndroidJUnit4::class)
 class ExerciseDaoTest {
     private lateinit var exerciseDao: ExerciseDao
     private lateinit var db: AppDatabase
+
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun createDb() {
@@ -60,7 +62,7 @@ class ExerciseDaoTest {
 
         // Exercise
         val rowIds = exerciseDao.addAll(exerciseList)
-        val responseFromDb = exerciseDao.getAllWithoutLiveData()
+        val responseFromDb = getValue(exerciseDao.getAll())
 
         // Verify
         assert(rowIds.size == 2) // insert successful

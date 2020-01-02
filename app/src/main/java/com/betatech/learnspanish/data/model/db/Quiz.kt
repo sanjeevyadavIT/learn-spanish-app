@@ -33,5 +33,13 @@ data class Quiz(
     val hint: String,
     @ColumnInfo(name = "correct_answer")
     val correctAnswer: String,
-    val options: List<String>
+    val options: Options
+)
+
+/**
+ * Room cannot store List directly hence creating this middle pojo class
+ * link: https://stackoverflow.com/a/44615752/4859873
+ */
+data class Options(
+    val data: List<String>
 )

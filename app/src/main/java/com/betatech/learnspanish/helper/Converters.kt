@@ -2,33 +2,36 @@ package com.betatech.learnspanish.helper
 
 import androidx.room.TypeConverter
 import com.betatech.learnspanish.data.model.db.Example
+import com.betatech.learnspanish.data.model.db.Examples
+import com.betatech.learnspanish.data.model.db.Options
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.util.ArrayList
 
-object Converters{
+class Converters{
 
     @TypeConverter
-    fun fromStringToExampleList(value: String?): ArrayList<Example> {
-        val listType = object : TypeToken<ArrayList<Example?>?>() {}.type
+    fun fromStringToExamples(value: String?): Examples {
+        val listType = object : TypeToken<Example?>() {}.type
         return Gson().fromJson(value, listType)
     }
 
     @TypeConverter
-    fun fromExampleListToString(list: ArrayList<Example?>?): String {
+    fun fromExamplesToString(data: Examples?): String {
         val gson = Gson()
-        return gson.toJson(list)
+        return gson.toJson(data)
     }
 
+
     @TypeConverter
-    fun fromStringToList(value: String?): ArrayList<String> {
-        val listType = object : TypeToken<ArrayList<String?>?>() {}.type
+    fun fromStringToOptions(value: String?): Options {
+        val listType = object : TypeToken<Options?>() {}.type
         return Gson().fromJson(value, listType)
     }
 
     @TypeConverter
-    fun fromListToString(list: ArrayList<String?>?): String {
+    fun fromOptionsToString(options: Options?): String {
         val gson = Gson()
-        return gson.toJson(list)
+        return gson.toJson(options)
     }
 }

@@ -1,10 +1,8 @@
 package com.betatech.learnspanish.data.model.db
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
+import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
-import androidx.room.PrimaryKey
+import com.betatech.learnspanish.helper.Converters
 
 /**
  * [Lesson] class contain one spanish word [Lesson.phrase]
@@ -31,7 +29,15 @@ data class Lesson(
     val phonetics: String,
     val translation: String,
     val description: String,
-    val examples: List<Example>
+    val examples: Examples
+)
+
+/**
+ * Room cannot store List directly hence creating this middle pojo class
+ * link: https://stackoverflow.com/a/44615752/4859873
+ */
+data class Examples(
+    val data: List<Example>
 )
 
 data class Example(

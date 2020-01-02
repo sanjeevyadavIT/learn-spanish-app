@@ -11,7 +11,4 @@ interface ExerciseDao : BaseDao<Exercise>{
 
     @Query("SELECT * FROM exercises")
     fun getAll() : LiveData<List<Exercise>>
-
-    @Query("SELECT * FROM exercises")
-    fun getAllWithoutLiveData() : List<Exercise>
 }
