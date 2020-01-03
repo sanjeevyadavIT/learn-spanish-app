@@ -12,7 +12,7 @@ class Converters{
 
     @TypeConverter
     fun fromStringToExamples(value: String?): Examples {
-        val listType = object : TypeToken<Example?>() {}.type
+        val listType = object : TypeToken<Examples?>() {}.type
         return Gson().fromJson(value, listType)
     }
 

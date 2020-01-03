@@ -1,6 +1,7 @@
 package com.betatech.learnspanish.db
 
 import android.content.Context
+import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
@@ -9,7 +10,10 @@ import com.betatech.learnspanish.data.local.db.AppDatabase
 import com.betatech.learnspanish.data.local.db.dao.ExerciseDao
 import com.betatech.learnspanish.data.model.db.Exercise
 import com.betatech.learnspanish.util.LiveDataTestUtil.getValue
+import com.betatech.learnspanish.util.TestUtil
+import org.hamcrest.CoreMatchers.equalTo
 import org.junit.After
+import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -45,28 +49,41 @@ class ExerciseDaoTest {
     @Throws(Exception::class)
     fun saveExerciseListAndReadInList() {
         // Setup
-        val exerciseList = listOf<Exercise>(
-            Exercise(
-                id="abc123",
-                exerciseNumber = 1,
-                title = "Spanish Alphabet",
-                description = "Spanish alphabet pronunciation"
-            ),
-            Exercise(
-                id="abc1234",
-                exerciseNumber = 2,
-                title = "Spanish Pronoun",
-                description = "He, She, I, You, They, We"
-            )
-        )
+        val exercises = TestUtil.createExercises(false)
 
         // Exercise
-        val rowIds = exerciseDao.addAll(exerciseList)
+        val rowIds = exerciseDao.addAll(exercises)
         val responseFromDb = getValue(exerciseDao.getAll())
 
         // Verify
-        assert(rowIds.size == 2) // insert successful
-        assert(responseFromDb.size == 2) // retrieve successful
-        assert(responseFromDb[0].title == "Spanish Alphabet")
+        assertThat(rowIds.size, equalTo(exercises.size)) // insert successful
+        assertThat(responseFromDb.size, equalTo(exercises.size)) // retrieve successful
+        assertThat(responseFromDb[0].id, equalTo(TestUtil.EXERCISE_ID))
+    }
+
+    @Test
+    fun updateExercise() {
+        // Setup
+        val input = TestUtil.createExercises(false)
+
+        exerciseDao.addAll(input)
+        val temp = exerciseDao.getById(TestUtil.EXERCISE_ID)
+        assertThat(temp.isCompleted, equalTo(false))
+
+        // Exercise
+        val rowId = exerciseDao.update(
+            Exercise(
+                id=TestUtil.EXERCISE_ID,
+                exerciseNumber = 1,
+                title = "Spanish Alphabet",
+                description = "Spanish alphabet pronunciation",
+                isCompleted = true
+        ))
+        val responseFromDb = exerciseDao.getById(TestUtil.EXERCISE_ID)
+
+        // Verify
+        assertThat(rowId, equalTo(1))
+        assertThat(responseFromDb.id, equalTo(TestUtil.EXERCISE_ID))
+        assertThat(responseFromDb.isCompleted, equalTo(true))
     }
 }
