@@ -4,16 +4,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.betatech.learnspanish.data.Repository
 import com.betatech.learnspanish.ui.exercises.ExercisesViewModel
+import com.betatech.learnspanish.ui.lessons.LessonsViewModel
 
 @Suppress("UNCHECKED_CAST")
-class ViewModelFactory constructor(
-    private val repository: Repository
+class ViewModelFactory(
+    private val repository: Repository,
+    private val exerciseId: String?
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
         with(modelClass) {
             when {
                 isAssignableFrom(ExercisesViewModel::class.java) ->
                     ExercisesViewModel(repository)
+                isAssignableFrom(LessonsViewModel::class.java) ->
+                    LessonsViewModel(repository, exerciseId)
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

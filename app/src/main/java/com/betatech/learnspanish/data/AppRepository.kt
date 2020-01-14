@@ -10,22 +10,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 
-class AppRepository private constructor(
+class AppRepository (
     private val dbHelper: DbHelper,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : Repository {
-
-    companion object {
-
-        // For Singleton instantiation
-        @Volatile
-        private var INSTANCE: AppRepository? = null
-
-        fun getInstance(dbHelper: DbHelper) =
-            INSTANCE ?: synchronized(this) {
-                INSTANCE ?: AppRepository(dbHelper).also { INSTANCE = it }
-            }
-    }
 
     override suspend fun insertExercises(exercises: List<Exercise>): List<Long> = withContext(ioDispatcher){
         dbHelper.insertExercises(exercises)
