@@ -6,47 +6,73 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 
-import com.betatech.learnspanish.R
 import com.betatech.learnspanish.data.AppRepository
 import com.betatech.learnspanish.data.local.db.AppDatabase
 import com.betatech.learnspanish.data.local.db.AppDbHelper
+import com.betatech.learnspanish.databinding.FragmentExercisesBinding
 import com.betatech.learnspanish.helper.ViewModelFactory
 
 /**
  * A simple [Fragment] subclass.
  */
-class ExercisesFragment : Fragment() {
+class ExercisesFragment : Fragment(), ExercisesAdapter.ListItemClickListener {
 
+    private lateinit var dataBinding: FragmentExercisesBinding
     private lateinit var viewModel: ExercisesViewModel
-    private lateinit var textView: TextView
+    private lateinit var exercisesAdapter: ExercisesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val application = requireNotNull(this.activity).application
-        val dbHelper = AppDbHelper.getInstance(AppDatabase.getInstance(application)!!)
-        val respository = AppRepository.getInstance(dbHelper)
-        val viewModelFactory = ViewModelFactory(respository)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ExercisesViewModel::class.java)
-        val rootView = inflater.inflate(R.layout.fragment_exercises, container, false)
-        textView = rootView.findViewById(R.id.dummy_text)
-        return rootView
+        setupViewModel()
+        dataBinding = FragmentExercisesBinding.inflate(inflater, container, false).apply {
+            viewmodel = viewModel
+        }
+        return dataBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        dataBinding.lifecycleOwner = this.viewLifecycleOwner
+        setupListAdapter()
+        setupLiveObservers()
+    }
+
+    override fun onListItemClick(exerciseId: String) {
+        openLessonsFragment(exerciseId)
+    }
+
+    private fun setupLiveObservers() {
         viewModel.exercises.observe(this, Observer {
-            var dummy =  "Exercises: \n"
-            it.forEach { data ->
-                dummy += data.title + "\n"
-            }
-            textView.text = dummy
+            exercisesAdapter.refreshData(it)
         })
+    }
+
+    private fun setupListAdapter() {
+        exercisesAdapter = ExercisesAdapter(this)
+        dataBinding.exercisesList.adapter = exercisesAdapter
+    }
+
+    /**
+     * TODO: Use Dependency injection to simplify this code
+     */
+    private fun setupViewModel() {
+        val application = requireNotNull(this.activity).application
+        val dbHelper = AppDbHelper.getInstance(AppDatabase.getInstance(application)!!)
+        val repository = AppRepository.getInstance(dbHelper)
+        val viewModelFactory = ViewModelFactory(repository)
+        viewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(ExercisesViewModel::class.java)
+    }
+
+    private fun openLessonsFragment(exerciseId: String) {
+        val action = ExercisesFragmentDirections.actionExercisesFragmentToLessonsFragment(exerciseId)
+        findNavController().navigate(action)
     }
 
 }

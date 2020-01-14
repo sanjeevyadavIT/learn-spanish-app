@@ -3,11 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/dashboardFragment">
+    app:startDestination="@id/exercisesFragment">
 
     <fragment
-        android:id="@+id/dashboardFragment"
+        android:id="@+id/exercisesFragment"
         android:name="com.betatech.learnspanish.ui.exercises.ExercisesFragment"
-        android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_exercises" />
+        android:label="@string/exercises_fragment_title"
+        tools:layout="@layout/fragment_exercises">
+        <action
+            android:id="@+id/action_exercisesFragment_to_lessonsFragment"
+            app:destination="@id/lessonsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lessonsFragment"
+        android:name="com.betatech.learnspanish.ui.lessons.LessonsFragment"
+        android:label="@string/lessons_fragment_title"
+        tools:layout="@layout/fragment_lessons" >
+        <argument
+            android:name="exerciseId"
+            app:argType="string" />
+    </fragment>
 </navigation>
