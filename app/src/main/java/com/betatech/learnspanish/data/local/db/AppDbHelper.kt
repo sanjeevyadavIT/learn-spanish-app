@@ -8,25 +8,40 @@ import com.betatech.learnspanish.data.model.db.Quiz
 /**
  * Concrete implementation of a [DbHelper].
  */
-class AppDbHelper(
+class AppDbHelper private constructor(
     private val appDatabase: AppDatabase
 ) : DbHelper {
-    override fun insertExercises(exerciseList: List<Exercise>): List<Long> =
-        appDatabase.exerciseDao().addAll(exerciseList)
+
+    companion object {
+
+        // For Singleton instantiation
+        @Volatile
+        private var INSTANCE: AppDbHelper? = null
+
+        fun getInstance(appDatabase: AppDatabase) =
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: AppDbHelper(appDatabase).also { INSTANCE = it }
+            }
+    }
+
+    override suspend fun insertExercises(exercises: List<Exercise>): List<Long> =
+        appDatabase.exerciseDao().insertAll(exercises)
 
     override fun getExercises(): LiveData<List<Exercise>> =
-        appDatabase.exerciseDao().getAll()
+        appDatabase.exerciseDao().getExercises()
 
-    override fun insertLessons(lessonList: List<Lesson>): List<Long> =
-        appDatabase.lessonDao().addAll(lessonList)
 
-    override fun getLessonsBy(exerciseId: String): LiveData<List<Lesson>> =
-        appDatabase.lessonDao().getLessonsBy(exerciseId)
+    override suspend fun insertLessons(lessons: List<Lesson>): List<Long> =
+        appDatabase.lessonDao().insertAll(lessons)
 
-    override fun insertQuizzes(quizList: List<Quiz>): List<Long> =
-        appDatabase.quizDao().addAll(quizList)
 
-    override fun getQuizzesBy(exerciseId: String): LiveData<List<Quiz>> =
-        appDatabase.quizDao().getQuizzesBy(exerciseId)
+    override fun getLessonsByExerciseId(exerciseId: String): LiveData<List<Lesson>> =
+        appDatabase.lessonDao().getLessonsByExerciseId(exerciseId)
+
+    override suspend fun insertQuizzes(quizzes: List<Quiz>): List<Long> =
+        appDatabase.quizDao().insertAll(quizzes)
+
+    override fun getQuizzesByExerciseId(exerciseId: String): LiveData<List<Quiz>> =
+        appDatabase.quizDao().getQuizzesByExerciseId(exerciseId)
 
 }

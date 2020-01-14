@@ -1,7 +1,6 @@
 package com.betatech.learnspanish.db
 
 import android.content.Context
-import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
@@ -52,8 +51,8 @@ class ExerciseDaoTest {
         val exercises = TestUtil.createExercises(false)
 
         // Exercise
-        val rowIds = exerciseDao.addAll(exercises)
-        val responseFromDb = getValue(exerciseDao.getAll())
+        val rowIds = exerciseDao.insertAll(exercises)
+        val responseFromDb = getValue(exerciseDao.getExercises())
 
         // Verify
         assertThat(rowIds.size, equalTo(exercises.size)) // insert successful
@@ -66,9 +65,9 @@ class ExerciseDaoTest {
         // Setup
         val input = TestUtil.createExercises(false)
 
-        exerciseDao.addAll(input)
-        val temp = exerciseDao.getById(TestUtil.EXERCISE_ID)
-        assertThat(temp.isCompleted, equalTo(false))
+        exerciseDao.insertAll(input)
+        val temp = exerciseDao.getExerciseById(TestUtil.EXERCISE_ID)
+        assertThat(temp!!.isCompleted, equalTo(false))
 
         // Exercise
         val rowId = exerciseDao.update(
@@ -79,11 +78,11 @@ class ExerciseDaoTest {
                 description = "Spanish alphabet pronunciation",
                 isCompleted = true
         ))
-        val responseFromDb = exerciseDao.getById(TestUtil.EXERCISE_ID)
+        val responseFromDb = exerciseDao.getExerciseById(TestUtil.EXERCISE_ID)
 
         // Verify
         assertThat(rowId, equalTo(1))
-        assertThat(responseFromDb.id, equalTo(TestUtil.EXERCISE_ID))
-        assertThat(responseFromDb.isCompleted, equalTo(true))
+        assertThat(responseFromDb!!.id, equalTo(TestUtil.EXERCISE_ID))
+        assertThat(responseFromDb!!.isCompleted, equalTo(true))
     }
 }

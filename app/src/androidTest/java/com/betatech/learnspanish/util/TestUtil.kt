@@ -31,7 +31,7 @@ object TestUtil {
         Lesson(
             id = LESSON_ID,
             exerciseId = EXERCISE_ID,
-            lessonNumber = "1",
+            lessonNumber = 1,
             phrase = "a",
             phonetics = "a",
             translation = "a",

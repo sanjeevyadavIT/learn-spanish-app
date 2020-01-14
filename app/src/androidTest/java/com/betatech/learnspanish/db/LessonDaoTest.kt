@@ -1,13 +1,13 @@
 package com.betatech.learnspanish.db
 
 import android.content.Context
+import android.database.sqlite.SQLiteConstraintException
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.betatech.learnspanish.data.local.db.AppDatabase
 import com.betatech.learnspanish.data.local.db.dao.LessonDao
-import com.betatech.learnspanish.data.model.db.Exercise
 import com.betatech.learnspanish.util.LiveDataTestUtil.getValue
 import com.betatech.learnspanish.util.TestUtil
 import org.hamcrest.CoreMatchers.equalTo
@@ -45,8 +45,8 @@ class LessonDaoTest {
         val exercises = TestUtil.createExercises(false)
         val lessons = TestUtil.createLessons()
 
-        db.exerciseDao().addAll(exercises)
-        val lessonsRowIds = lessonDao.addAll(lessons)
+        db.exerciseDao().insertAll(exercises)
+        val lessonsRowIds = lessonDao.insertAll(lessons)
 
         assertThat(lessonsRowIds.size, equalTo(lessons.size))
         return lessonsRowIds.size
@@ -58,10 +58,23 @@ class LessonDaoTest {
         val totalLessonsSaved = saveExerciseAndLessonInDb()
 
         // Exercise
-        val lessons = getValue(lessonDao.getLessonsBy(exerciseId = TestUtil.EXERCISE_ID))
+        val lessons = getValue(lessonDao.getLessonsByExerciseId(exerciseId = TestUtil.EXERCISE_ID))
 
         // Verify
         assertThat(lessons.size, equalTo(totalLessonsSaved))
+    }
+
+    /**
+     * This test, tests that foreign key constraint
+     * is properly followed
+     */
+    @Test(expected = SQLiteConstraintException::class)
+    fun insertionFailsWhenNoExercisePresent(){
+        // Setup
+        val lessons = TestUtil.createLessons()
+
+        // Exercise
+        lessonDao.insertAll(lessons)
     }
 
 }

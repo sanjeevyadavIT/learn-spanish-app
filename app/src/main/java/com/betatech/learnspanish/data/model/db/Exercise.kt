@@ -13,6 +13,12 @@ import androidx.room.PrimaryKey
  * After reading all the lessons, user can
  * take [Quiz] to complete the exercise,
  * and unlock next exercise and earn points.
+ *
+ * @param id             id of the exercise
+ * @param exerciseNumber serial number of the exercise
+ * @param title          title of the exercise
+ * @param description    description of the exercise
+ * @param isCompleted    whether the exercise has been completed or not
  */
 @Entity(tableName = "exercises")
 data class Exercise(

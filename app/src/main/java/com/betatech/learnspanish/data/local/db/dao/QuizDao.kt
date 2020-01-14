@@ -8,6 +8,12 @@ import com.betatech.learnspanish.data.model.db.Quiz
 @Dao
 interface QuizDao: BaseDao<Quiz> {
 
+    /**
+     * Select all quizzes from the quizzes table,
+     * by their exerciseId
+     *
+     * @return all quizzes wrapped in LiveData
+     */
     @Query("SELECT * FROM quizzes WHERE exerciseId = :exerciseId")
-    fun getQuizzesBy(exerciseId: String): LiveData<List<Quiz>>
+    fun getQuizzesByExerciseId(exerciseId: String): LiveData<List<Quiz>>
 }

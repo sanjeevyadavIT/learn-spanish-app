@@ -24,7 +24,7 @@ data class Lesson(
     val id: String,
     val exerciseId: String,
     @ColumnInfo(name = "lesson_number")
-    val lessonNumber: String,
+    val lessonNumber: Int,
     val phrase: String,
     val phonetics: String,
     val translation: String,
