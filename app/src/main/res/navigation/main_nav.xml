@@ -22,5 +22,17 @@
         <argument
             android:name="exerciseId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_lessonsFragment_to_quizFragment"
+            app:destination="@id/quizFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.betatech.learnspanish.ui.quiz.QuizFragment"
+        android:label="fragment_quiz"
+        tools:layout="@layout/fragment_quiz">
+        <argument
+            android:name="exerciseId"
+            app:argType="string" />
     </fragment>
 </navigation>
