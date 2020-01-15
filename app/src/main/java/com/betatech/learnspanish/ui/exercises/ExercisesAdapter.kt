@@ -9,9 +9,10 @@ import com.betatech.learnspanish.databinding.ExerciseItemBinding
 
 
 class ExercisesAdapter(
-    val itemClickListener: ListItemClickListener,
-    var exercises: List<Exercise> = emptyList()
+    private val onClick: (String) -> Unit
 ) : RecyclerView.Adapter<ExercisesAdapter.ExerciseViewHolder>() {
+
+    private var exercises: List<Exercise>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder =
         ExerciseViewHolder(
@@ -22,13 +23,12 @@ class ExercisesAdapter(
             )
         )
 
-    override fun getItemCount(): Int {
-        return exercises.size
-    }
+    override fun getItemCount(): Int = exercises?.size ?: 0
 
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
-        val exercise = exercises[position]
-        holder.bind(exercise)
+        exercises?.get(position)?.let { exercise ->
+            holder.bind(exercise)
+        }
     }
 
     fun refreshData(newData: List<Exercise>?) {
@@ -41,7 +41,7 @@ class ExercisesAdapter(
     inner class ExerciseViewHolder(private val dataBinding: ExerciseItemBinding) :
         RecyclerView.ViewHolder(dataBinding.root), View.OnClickListener {
 
-        init{
+        init {
             dataBinding.root.setOnClickListener(this)
         }
 
@@ -51,13 +51,9 @@ class ExercisesAdapter(
         }
 
         override fun onClick(p0: View?) {
-            itemClickListener.onListItemClick(exercises[adapterPosition].id)
+            exercises?.apply {
+                onClick(this[adapterPosition].id)
+            }
         }
-
-
-    }
-
-    interface ListItemClickListener {
-        fun onListItemClick(exerciseId: String)
     }
 }

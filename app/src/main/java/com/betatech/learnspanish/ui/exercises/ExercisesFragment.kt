@@ -21,9 +21,9 @@ import com.betatech.learnspanish.helper.getViewModelFactory
 /**
  * A simple [Fragment] subclass.
  */
-class ExercisesFragment : Fragment(), ExercisesAdapter.ListItemClickListener {
+class ExercisesFragment : Fragment() {
 
-    private val viewModel by viewModels<ExercisesViewModel>{ getViewModelFactory() }
+    private val viewModel by viewModels<ExercisesViewModel> { getViewModelFactory() }
 
     private lateinit var dataBinding: FragmentExercisesBinding
     private lateinit var exercisesAdapter: ExercisesAdapter
@@ -45,10 +45,6 @@ class ExercisesFragment : Fragment(), ExercisesAdapter.ListItemClickListener {
         setupLiveObservers()
     }
 
-    override fun onListItemClick(exerciseId: String) {
-        openLessonsFragment(exerciseId)
-    }
-
     private fun setupLiveObservers() {
         viewModel.exercises.observe(this, Observer {
             exercisesAdapter.refreshData(it)
@@ -56,12 +52,15 @@ class ExercisesFragment : Fragment(), ExercisesAdapter.ListItemClickListener {
     }
 
     private fun setupListAdapter() {
-        exercisesAdapter = ExercisesAdapter(this)
+        exercisesAdapter = ExercisesAdapter { exerciseId ->
+            openLessonsFragment(exerciseId)
+        }
         dataBinding.exercisesList.adapter = exercisesAdapter
     }
 
     private fun openLessonsFragment(exerciseId: String) {
-        val action = ExercisesFragmentDirections.actionExercisesFragmentToLessonsFragment(exerciseId)
+        val action =
+            ExercisesFragmentDirections.actionExercisesFragmentToLessonsFragment(exerciseId)
         findNavController().navigate(action)
     }
 

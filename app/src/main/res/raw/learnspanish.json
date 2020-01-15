@@ -1,0 +1,131 @@
+{
+  "created_at": "2019-12-24T03:08:54 -06:-30",
+  "modified_at": "2019-12-24T03:08:54 -06:-30",
+  "exercises": [
+    {
+      "id": "5e01dcae0e9b410552996c8f",
+      "exercise_number": 1,
+      "title": "Spanish Alphabets",
+      "description": "Learn spanish alphabets and their pronounciation",
+      "lessons": [
+        {
+          "id": "5e01dcae8941c2463a7a918d",
+          "lesson_number": 1,
+          "phrase": "a",
+          "phonetics": "a",
+          "translation": "a",
+          "description": "",
+          "examples": []
+        },
+        {
+          "id": "5e01dcae5f3c81f55339ac4e",
+          "lesson_number": 2,
+          "phrase": "b",
+          "phonetics": "be",
+          "translation": "b",
+          "description": "",
+          "examples": []
+        },
+        {
+          "id": "5e01dcaef0059315b22287b6",
+          "lesson_number": 3,
+          "phrase": "c",
+          "phonetics": "ce",
+          "translation": "c",
+          "description": "",
+          "examples": []
+        },
+        {
+          "id": "5e01dcae56604578385c8f54",
+          "lesson_number": 4,
+          "phrase": "d",
+          "phonetics": "de",
+          "translation": "d",
+          "description": "",
+          "examples": []
+        },
+        {
+          "id": "5e01dcaea58adb6864408777",
+          "lesson_number": 5,
+          "phrase": "e",
+          "phonetics": "e",
+          "translation": "e",
+          "description": "",
+          "examples": []
+        }
+      ],
+      "quiz": [
+        {
+          "id": "5e01dcaeaf60ee949362503c",
+          "question_number": 1,
+          "question": "Select correct pronounciation for <b>a</b>",
+          "type": "mcq",
+          "hint": "",
+          "correct_answer": "a",
+          "options": [
+            "ae",
+            "aha",
+            "a",
+            "aa"
+          ]
+        },
+        {
+          "id": "5e01dcae87b20232f432ecde",
+          "question_number": 2,
+          "question": "Select correct pronounciation for <b>b</b>",
+          "type": "mcq",
+          "hint": "",
+          "correct_answer": "be",
+          "options": [
+            "b",
+            "be",
+            "bee",
+            "ba"
+          ]
+        },
+        {
+          "id": "5e01dcae0803b2c03f3cee25",
+          "question_number": 3,
+          "question": "Select correct pronounciation for <b>c</b>",
+          "type": "mcq",
+          "hint": "",
+          "correct_answer": "ce",
+          "options": [
+            "cae",
+            "ca",
+            "c",
+            "ce"
+          ]
+        },
+        {
+          "id": "5e01dcaed67b7f27776bad38",
+          "question_number": 4,
+          "question": "Select correct pronounciation for <b>d</b>",
+          "type": "mcq",
+          "hint": "",
+          "correct_answer": "de",
+          "options": [
+            "de",
+            "d",
+            "da",
+            "di"
+          ]
+        },
+        {
+          "id": "5e01dcaed68baa6ef48add80",
+          "question_number": 5,
+          "question": "Select correct pronounciation for <b>e</b>",
+          "type": "mcq",
+          "hint": "",
+          "correct_answer": "e",
+          "options": [
+            "i",
+            "ee",
+            "ih",
+            "e"
+          ]
+        }
+      ]
+    }
+  ]
+}
