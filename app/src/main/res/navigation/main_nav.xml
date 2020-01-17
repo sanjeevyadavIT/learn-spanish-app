@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/quizFragment"
         android:name="com.betatech.learnspanish.ui.quiz.QuizFragment"
-        android:label="fragment_quiz"
+        android:label="@string/quiz_fragment_title"
         tools:layout="@layout/fragment_quiz">
         <argument
             android:name="exerciseId"

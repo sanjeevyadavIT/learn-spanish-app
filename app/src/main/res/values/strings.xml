@@ -6,4 +6,5 @@
     <string name="exercises_fragment_title">Learn Spanish</string>
     <string name="lessons_fragment_title">Lessons</string>
     <string name="no_lesson_available">No Lesson Available for this Exercise</string>
+    <string name="quiz_fragment_title">Quiz</string>
 </resources>
