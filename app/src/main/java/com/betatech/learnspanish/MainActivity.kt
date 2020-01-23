@@ -1,6 +1,7 @@
 package com.betatech.learnspanish
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
@@ -18,9 +19,14 @@ class MainActivity : AppCompatActivity() {
     private fun setupToolbarWithNavigationComponent() {
         val navController = findNavController(R.id.nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(navController.graph)
-        findViewById<Toolbar>(R.id.toolbar).setupWithNavController(
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.setupWithNavController(
             navController,
             appBarConfiguration
         )
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            toolbar.visibility =
+                if (destination.id == R.id.quizFragment) View.GONE else View.VISIBLE
+        }
     }
 }

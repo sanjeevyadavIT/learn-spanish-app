@@ -97,10 +97,7 @@ class QuizViewModel(
 
             _numberOfQuestionAnswered.value = _numberOfQuestionAnswered.value?.plus(1)
 
-            if (_userAnswer.value?.toLowerCase(Locale.US) == question.value?.correctAnswer?.toLowerCase(
-                    Locale.US
-                ) ?: "-1"
-            ) {
+            if (checkUserEnteredAnswer()) {
                 handleCorrectAnswerState()
             } else {
                 handleWrongAnswerState()
@@ -110,6 +107,18 @@ class QuizViewModel(
             prepareNextQuestion()
         }
 
+    }
+
+    /**
+     * TODO(1): Remove multiple spaces between user entered answer, if there
+     * TODO(2): Provide multiple possible answers to check against user entered answer
+     *          example: user can enter "You cannot" or "You can't"
+     *          example: user can forget a semicolon, punctuation or question mark
+     */
+    private fun checkUserEnteredAnswer(): Boolean {
+        return _userAnswer.value?.toLowerCase(Locale.US) == question.value?.correctAnswer?.toLowerCase(
+            Locale.US
+        ) ?: "-1"
     }
 
     fun setupFirstQuestion() {

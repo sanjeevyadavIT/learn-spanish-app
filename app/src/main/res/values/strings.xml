@@ -2,6 +2,7 @@
     <!-- ========================= Common ============================ -->
     <string name="app_name">Learn Spanish</string>
     <string name="empty_string" translatable="false" />
+    <string name="quit">Quit</string>
     <!-- ============================================================= -->
 
     <!-- =============== Fragment Toolbar Titles ===================== -->
@@ -15,12 +16,14 @@
     <!-- ============================================================= -->
 
     <!-- ====================== Quiz Fragment ======================== -->
-    <string name="life_left_string">Life left %1$d</string>
     <string name="check_answer_btn_title">Check</string>
     <string name="next_question_btn_title">Continue</string>
     <string name="enter_answer_hint">Enter answer</string>
     <string name="correct_answer_msg">Correct Answer</string>
     <string name="wrong_answer_msg">Wrong Answer</string>
     <string name="display_correct_answer">Correct Answer is : %1$s</string>
+    <string name="life_line_in_quiz_content_description">Life line in quiz</string>
+    <string name="close_quiz_dialog_title">Are you sure about that?</string>
+    <string name="close_quiz_dialog_message">All progress in this quiz will be lost.</string>
     <!-- ============================================================= -->
 </resources>

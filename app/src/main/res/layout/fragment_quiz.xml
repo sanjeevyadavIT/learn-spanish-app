@@ -37,29 +37,42 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="16dp" />
 
+        <ImageButton
+            android:id="@+id/btn_close_quiz"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/game_progress"
+            app:layout_constraintStart_toStartOf="@+id/start_margin"
+            app:layout_constraintTop_toTopOf="@+id/game_progress"
+            android:background="@android:color/transparent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            bind:srcCompat="@drawable/ic_close" />
+
 
         <ProgressBar
             android:id="@+id/game_progress"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="8dp"
             android:max="100"
             android:progress="@{viewmodel.progress}"
-            app:layout_constraintEnd_toStartOf="@+id/tv_life_left"
-            app:layout_constraintStart_toStartOf="@+id/start_margin"
+            app:layout_constraintEnd_toStartOf="@+id/life_indicator"
+            app:layout_constraintStart_toEndOf="@+id/btn_close_quiz"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_life_left"
+        <include
+            android:id="@+id/life_indicator"
+            layout="@layout/life_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/life_left_string(viewmodel.lifeLeft)}"
-            tools:text="Life left 3"
             app:layout_constraintBottom_toBottomOf="@+id/game_progress"
             app:layout_constraintEnd_toStartOf="@+id/end_margin"
-            app:layout_constraintTop_toTopOf="@+id/game_progress" />
+            app:layout_constraintTop_toTopOf="@+id/game_progress"
+            bind:viewmodel="@{viewmodel}" />
 
         <TextView
             android:id="@+id/tv_question"
