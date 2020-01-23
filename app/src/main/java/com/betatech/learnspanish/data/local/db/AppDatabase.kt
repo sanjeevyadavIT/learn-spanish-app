@@ -1,30 +1,29 @@
 package com.betatech.learnspanish.data.local.db
 
 import android.content.Context
-import androidx.room.*
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.betatech.learnspanish.data.local.db.dao.ExerciseDao
 import com.betatech.learnspanish.data.local.db.dao.LessonDao
-import com.betatech.learnspanish.data.local.db.dao.QuizDao
+import com.betatech.learnspanish.data.local.db.dao.QuestionDao
 import com.betatech.learnspanish.data.model.db.Exercise
 import com.betatech.learnspanish.data.model.db.Lesson
-import com.betatech.learnspanish.data.model.db.Quiz
+import com.betatech.learnspanish.data.model.db.Question
 import com.betatech.learnspanish.helper.Converters
 import com.betatech.learnspanish.helper.ParseJsonDataFile
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.concurrent.Executors
 
 
 /**
- * The Room Database that contains the [Exercise], [Lesson], [Quiz] tables.
+ * The Room Database that contains the [Exercise], [Lesson], [Question] tables.
  *
  * Note that exportSchema should be true in production databases.
  */
 @Database(
-    entities = [Exercise::class, Lesson::class, Quiz::class],
+    entities = [Exercise::class, Lesson::class, Question::class],
     version = 1,
     exportSchema = false
 )
@@ -34,7 +33,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun lessonDao(): LessonDao
 
-    abstract fun quizDao(): QuizDao
+    abstract fun questionDao(): QuestionDao
 
     companion object {
         @Volatile
@@ -55,11 +54,13 @@ abstract class AppDatabase : RoomDatabase() {
                                 super.onCreate(db)
                                 Executors.newSingleThreadExecutor().execute {
                                     instance?.let {db ->
-                                        val (exercises, lessons, quizzes) = ParseJsonDataFile.parse(context)
+                                        val (exercises, lessons, questions) = ParseJsonDataFile.parse(
+                                            context
+                                        )
 
                                         db.exerciseDao().insertAll(exercises)
                                         db.lessonDao().insertAll(lessons)
-                                        db.quizDao().insertAll(quizzes)
+                                        db.questionDao().insertAll(questions)
                                     }
                                 }
                             }

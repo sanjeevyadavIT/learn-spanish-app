@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.text.InputType" />
+
+        <import type="com.betatech.learnspanish.ui.quiz.QuizViewModel.QuizState" />
+
+        <variable
+            name="viewmodel"
+            type="com.betatech.learnspanish.ui.quiz.QuizViewModel" />
+
+    </data>
+
+    <EditText
+        android:id="@+id/et_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="@{viewmodel.quizState == QuizState.NOT_ANSWERED ? InputType.TYPE_CLASS_TEXT : InputType.TYPE_NULL}"
+        android:onTextChanged="@{viewmodel::onAnswerTyped}"
+        android:hint="@string/enter_answer_hint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:importantForAutofill="no" />
+</layout>

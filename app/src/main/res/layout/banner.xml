@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.betatech.learnspanish.ui.quiz.QuizViewModel.QuizState" />
+
+        <variable
+            name="viewmodel"
+            type="com.betatech.learnspanish.ui.quiz.QuizViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@{viewmodel.quizState == QuizState.CORRECT_ANSWER ? @color/success : @color/error}"
+        tools:background="@color/error"
+        android:minHeight="100dp">
+
+        <TextView
+            android:id="@+id/tv_banner_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:text="@{viewmodel.quizState == QuizState.CORRECT_ANSWER ? @string/correct_answer_msg : viewmodel.quizState == QuizState.WRONG_ANSWER ? @string/wrong_answer_msg : @string/empty_string }"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Wrong Answer" />
+
+        <TextView
+            android:id="@+id/tv_correct_answer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewmodel.quizState == QuizState.WRONG_ANSWER ? View.VISIBLE : View.GONE, default = gone}"
+            tools:visibility="visible"
+            tools:text="Correct Answer is : Cheese"
+            android:text="@{@string/display_correct_answer(viewmodel.question.correctAnswer)}"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@id/tv_banner_message"
+            app:layout_constraintStart_toStartOf="@id/tv_banner_message"
+            app:layout_constraintTop_toBottomOf="@id/tv_banner_message" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

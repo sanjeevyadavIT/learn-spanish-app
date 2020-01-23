@@ -7,24 +7,24 @@ import com.betatech.learnspanish.data.Repository
 import com.betatech.learnspanish.data.model.db.Lesson
 
 class LessonsViewModel(
-    private val repository: Repository,
-    private val exerciseId: String?
+    repository: Repository,
+    exerciseId: String?
 ) : ViewModel() {
 
     val lessons = repository.getLessonsByExerciseId(exerciseId ?: "")
 
-    private var _lesson = MutableLiveData<Lesson>()
+    private val _lesson = MutableLiveData<Lesson>()
     val lesson: LiveData<Lesson> = _lesson
     private var currentLessonIndex = -1
 
-    private var _isPreviousButtonVisible = MutableLiveData<Boolean>(false)
-    var isPreviousButtonVisible: LiveData<Boolean> = _isPreviousButtonVisible
+    private val _isPreviousButtonVisible = MutableLiveData<Boolean>(false)
+    val isPreviousButtonVisible: LiveData<Boolean> = _isPreviousButtonVisible
 
-    private var _isNextButtonVisible = MutableLiveData<Boolean>(false)
-    var isNextButtonVisible: LiveData<Boolean> = _isNextButtonVisible
+    private val _isNextButtonVisible = MutableLiveData<Boolean>(false)
+    val isNextButtonVisible: LiveData<Boolean> = _isNextButtonVisible
 
-    private var _isQuizButtonEnabled = MutableLiveData<Boolean>(false)
-    var isQuizButtonEnabled: LiveData<Boolean> = _isQuizButtonEnabled
+    private val _isQuizButtonEnabled = MutableLiveData<Boolean>(false)
+    val isQuizButtonEnabled: LiveData<Boolean> = _isQuizButtonEnabled
 
     /**
      * Once, lessons for particular exercise is
@@ -53,6 +53,9 @@ class LessonsViewModel(
         }
     }
 
+    /**
+     * Move to the next lesson in the exercise
+     */
     fun nextLesson() {
         if (currentLessonIndex < ((lessons.value?.size ?: 0) - 1)) {
             currentLessonIndex++
@@ -65,6 +68,9 @@ class LessonsViewModel(
         }
     }
 
+    /**
+     * Move to the previous lesson in the exercise
+     */
     fun previousLesson() {
         if (currentLessonIndex > 0) {
             currentLessonIndex--

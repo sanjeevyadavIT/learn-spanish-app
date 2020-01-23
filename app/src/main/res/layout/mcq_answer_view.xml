@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.betatech.learnspanish.ui.quiz.QuizViewModel.QuizState" />
+
+        <variable
+            name="viewmodel"
+            type="com.betatech.learnspanish.ui.quiz.QuizViewModel" />
+
+    </data>
+
+    <RadioGroup
+        android:id="@+id/rg_options"
+        android:onCheckedChanged="@{viewmodel::onRadioButtonSelected}"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/rb_option_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="@{viewmodel.quizState == QuizState.NOT_ANSWERED ? true : false}"
+            android:text="@{viewmodel.question.options.data.size() > 0 ? viewmodel.question.options.data.get(0) : @string/empty_string}"
+            android:visibility="@{viewmodel.question.options.data.size() > 0 ? View.VISIBLE: View.GONE, default = gone}"
+            tools:text="Option One" />
+
+        <RadioButton
+            android:id="@+id/rb_option_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="@{viewmodel.quizState == QuizState.NOT_ANSWERED ? true : false}"
+            android:text="@{viewmodel.question.options.data.size() > 1 ? viewmodel.question.options.data.get(1) : @string/empty_string}"
+            android:visibility="@{viewmodel.question.options.data.size() > 1 ? View.VISIBLE: View.GONE, default = gone}"
+            tools:text="Option Two" />
+
+        <RadioButton
+            android:id="@+id/rb_option_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="@{viewmodel.quizState == QuizState.NOT_ANSWERED ? true : false}"
+            android:text="@{viewmodel.question.options.data.size() > 2 ? viewmodel.question.options.data.get(2) : @string/empty_string}"
+            android:visibility="@{viewmodel.question.options.data.size() > 2 ? View.VISIBLE: View.GONE, default = gone}"
+            tools:text="Option Three" />
+
+        <RadioButton
+            android:id="@+id/rb_option_four"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="@{viewmodel.quizState == QuizState.NOT_ANSWERED ? true : false}"
+            android:text="@{viewmodel.question.options.data.size() > 3 ? viewmodel.question.options.data.get(3) : @string/empty_string}"
+            android:visibility="@{viewmodel.question.options.data.size() > 3 ? View.VISIBLE: View.GONE, default = gone}"
+            tools:text="Option Four" />
+    </RadioGroup>
+</layout>

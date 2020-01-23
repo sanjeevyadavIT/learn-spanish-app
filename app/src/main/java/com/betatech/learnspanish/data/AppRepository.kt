@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.betatech.learnspanish.data.local.db.DbHelper
 import com.betatech.learnspanish.data.model.db.Exercise
 import com.betatech.learnspanish.data.model.db.Lesson
-import com.betatech.learnspanish.data.model.db.Quiz
+import com.betatech.learnspanish.data.model.db.Question
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -29,10 +29,11 @@ class AppRepository (
     override fun getLessonsByExerciseId(exerciseId: String): LiveData<List<Lesson>> =
         dbHelper.getLessonsByExerciseId(exerciseId)
 
-    override suspend fun insertQuizzes(quizzes: List<Quiz>): List<Long> = withContext(ioDispatcher) {
-        dbHelper.insertQuizzes(quizzes)
+    override suspend fun insertQuestions(questions: List<Question>): List<Long> =
+        withContext(ioDispatcher) {
+            dbHelper.insertQuestions(questions)
     }
 
-    override fun getQuizzesByExerciseId(exerciseId: String): LiveData<List<Quiz>> =
-        dbHelper.getQuizzesByExerciseId(exerciseId)
+    override fun getQuestionsByExerciseId(exerciseId: String): LiveData<List<Question>> =
+        dbHelper.getQuestionsByExerciseId(exerciseId)
 }

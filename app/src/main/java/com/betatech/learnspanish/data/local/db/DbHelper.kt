@@ -3,7 +3,7 @@ package com.betatech.learnspanish.data.local.db
 import androidx.lifecycle.LiveData
 import com.betatech.learnspanish.data.model.db.Exercise
 import com.betatech.learnspanish.data.model.db.Lesson
-import com.betatech.learnspanish.data.model.db.Quiz
+import com.betatech.learnspanish.data.model.db.Question
 
 /**
  * All database related function
@@ -13,7 +13,7 @@ interface DbHelper{
      * Save all exercises in database
      *
      * @param exercises list of exercise which need to be saved
-     * @return list of long which represent row id
+     * @return list containing row IDs of rows inserted
      */
     suspend fun insertExercises(exercises: List<Exercise>): List<Long>
 
@@ -28,7 +28,7 @@ interface DbHelper{
      * Save all lessons in database
      *
      * @param lessons list of lesson which need to be saved
-     * @return list of long which represent row id
+     * @return list containing row IDs of rows inserted
      */
     suspend fun insertLessons(lessons: List<Lesson>): List<Long>
 
@@ -41,18 +41,18 @@ interface DbHelper{
     fun getLessonsByExerciseId(exerciseId: String): LiveData<List<Lesson>>
 
     /**
-     * Save all quizzes in database
+     * Save all questions in database
      *
-     * @param quizzes list of quiz which need to be saved
-     * @return list of long which represent row id
+     * @param questions list of questions for quizzes which need to be saved
+     * @return list containing row IDs of rows inserted
      */
-    suspend fun insertQuizzes(quizzes: List<Quiz>): List<Long>
+    suspend fun insertQuestions(questions: List<Question>): List<Long>
 
     /**
-     * Get [Quiz] list which belong to a particular exercise
+     * Get [Question] list which belong to a particular exercise/quiz
      *
-     * @param exerciseId id of the exercise whose quizzes need to find
-     * @return quiz list wrapped in LiveData
+     * @param exerciseId id of the exercise whose questions need to find
+     * @return list of questions wrapped in LiveData
      */
-    fun getQuizzesByExerciseId(exerciseId: String): LiveData<List<Quiz>>
+    fun getQuestionsByExerciseId(exerciseId: String): LiveData<List<Question>>
 }

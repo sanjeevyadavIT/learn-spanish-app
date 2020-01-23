@@ -3,7 +3,7 @@ package com.betatech.learnspanish.data.local.db
 import androidx.lifecycle.LiveData
 import com.betatech.learnspanish.data.model.db.Exercise
 import com.betatech.learnspanish.data.model.db.Lesson
-import com.betatech.learnspanish.data.model.db.Quiz
+import com.betatech.learnspanish.data.model.db.Question
 
 /**
  * Concrete implementation of a [DbHelper].
@@ -38,10 +38,10 @@ class AppDbHelper private constructor(
     override fun getLessonsByExerciseId(exerciseId: String): LiveData<List<Lesson>> =
         appDatabase.lessonDao().getLessonsByExerciseId(exerciseId)
 
-    override suspend fun insertQuizzes(quizzes: List<Quiz>): List<Long> =
-        appDatabase.quizDao().insertAll(quizzes)
+    override suspend fun insertQuestions(questions: List<Question>): List<Long> =
+        appDatabase.questionDao().insertAll(questions)
 
-    override fun getQuizzesByExerciseId(exerciseId: String): LiveData<List<Quiz>> =
-        appDatabase.quizDao().getQuizzesByExerciseId(exerciseId)
+    override fun getQuestionsByExerciseId(exerciseId: String): LiveData<List<Question>> =
+        appDatabase.questionDao().getQuestionsByExerciseId(exerciseId)
 
 }

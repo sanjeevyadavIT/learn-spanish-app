@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey
  * to learn.
  *
  * After reading all the lessons, user can
- * take [Quiz] to complete the exercise,
+ * take [Question] to complete the exercise,
  * and unlock next exercise and earn points.
  *
  * @param id             id of the exercise

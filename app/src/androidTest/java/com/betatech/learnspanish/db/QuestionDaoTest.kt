@@ -6,7 +6,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.betatech.learnspanish.data.local.db.AppDatabase
-import com.betatech.learnspanish.data.local.db.dao.QuizDao
+import com.betatech.learnspanish.data.local.db.dao.QuestionDao
 import com.betatech.learnspanish.util.LiveDataTestUtil
 import com.betatech.learnspanish.util.TestUtil
 import org.hamcrest.CoreMatchers.equalTo
@@ -16,8 +16,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class QuizDaoTest {
-    private lateinit var quizDao: QuizDao
+class QuestionDaoTest {
+    private lateinit var quizDao: QuestionDao
     private lateinit var db: AppDatabase
 
     @get:Rule
@@ -30,7 +30,7 @@ class QuizDaoTest {
             context,
             AppDatabase::class.java
         ).build()
-        quizDao = db.quizDao()
+        quizDao = db.questionDao()
     }
 
     @After
@@ -40,7 +40,7 @@ class QuizDaoTest {
 
     private fun saveExerciseAndQuizInDb(): Int {
         val exercises = TestUtil.createExercises(false)
-        val quizzes = TestUtil.createQuizzes()
+        val quizzes = TestUtil.createQuiz()
 
         db.exerciseDao().insertAll(exercises)
         val quizRowIds = quizDao.insertAll(quizzes)
@@ -56,7 +56,7 @@ class QuizDaoTest {
 
         // Exercise
         val quizzes =
-            LiveDataTestUtil.getValue(quizDao.getQuizzesByExerciseId(exerciseId = TestUtil.EXERCISE_ID))
+            LiveDataTestUtil.getValue(quizDao.getQuestionsByExerciseId(exerciseId = TestUtil.EXERCISE_ID))
 
         // Verify
         assertThat(quizzes.size, equalTo(totalQuizSaved))
@@ -69,7 +69,7 @@ class QuizDaoTest {
     @Test(expected = SQLiteConstraintException::class)
     fun insertionFailsWhenNoExercisePresent(){
         // Setup
-        val quizzes = TestUtil.createQuizzes()
+        val quizzes = TestUtil.createQuiz()
 
         // Exercise
         quizDao.insertAll(quizzes)

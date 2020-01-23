@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <import type="android.view.View" />
+
+        <import type="com.betatech.learnspanish.ui.quiz.QuizViewModel.QuizState" />
 
         <variable
             name="viewmodel"
@@ -13,17 +17,120 @@
 
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.quiz.QuizFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@{`` + viewmodel.quizzess.size()}" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/start_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp" />
 
-    </FrameLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/end_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
+
+
+        <ProgressBar
+            android:id="@+id/game_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:max="100"
+            android:progress="@{viewmodel.progress}"
+            app:layout_constraintEnd_toStartOf="@+id/tv_life_left"
+            app:layout_constraintStart_toStartOf="@+id/start_margin"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_life_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/life_left_string(viewmodel.lifeLeft)}"
+            tools:text="Life left 3"
+            app:layout_constraintBottom_toBottomOf="@+id/game_progress"
+            app:layout_constraintEnd_toStartOf="@+id/end_margin"
+            app:layout_constraintTop_toTopOf="@+id/game_progress" />
+
+        <TextView
+            android:id="@+id/tv_question"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@{viewmodel.formatHtml(viewmodel.question.question)}"
+            tools:text="What does Queso means?"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/end_margin"
+            app:layout_constraintStart_toStartOf="@+id/start_margin"
+            app:layout_constraintTop_toBottomOf="@+id/game_progress" />
+
+        <include
+            android:id="@+id/mcq_answer_view"
+            layout="@layout/mcq_answer_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:visibility='@{"mcq".equals(viewmodel.question.questionType) ? View.VISIBLE : View.GONE, default = gone}'
+            tools:visibility="visible"
+            app:layout_constraintEnd_toEndOf="@id/end_margin"
+            app:layout_constraintStart_toStartOf="@id/start_margin"
+            app:layout_constraintTop_toBottomOf="@+id/question_textview_barrier"
+            bind:viewmodel="@{viewmodel}" />
+
+        <include
+            android:id="@+id/type_answer_view"
+            layout="@layout/type_answer_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:visibility='@{"type".equals(viewmodel.question.questionType) ? View.VISIBLE : View.GONE, default = gone}'
+            app:layout_constraintEnd_toEndOf="@id/end_margin"
+            app:layout_constraintStart_toStartOf="@id/start_margin"
+            app:layout_constraintTop_toBottomOf="@+id/question_textview_barrier"
+            bind:viewmodel="@{viewmodel}" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/question_textview_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="tv_question"
+            tools:layout_editor_absoluteY="731dp" />
+
+        <Button
+            android:id="@+id/btn_check"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:enabled='@{"".equals(viewmodel.userAnswer) ? false : true}'
+            android:onClick="@{viewmodel::checkAnswer}"
+            android:text="@{viewmodel.quizState == QuizState.NOT_ANSWERED ? @string/check_answer_btn_title : @string/next_question_btn_title}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/end_margin"
+            app:layout_constraintStart_toStartOf="@+id/start_margin" />
+
+        <include
+            android:id="@+id/message"
+            layout="@layout/banner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewmodel.quizState == QuizState.NOT_ANSWERED ? View.GONE : View.VISIBLE, default = gone}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/start_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:viewmodel="@{viewmodel}"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -1,6 +1,5 @@
 package com.betatech.learnspanish.helper
 
-import android.app.PendingIntent.getActivity
 import android.content.Context
 import com.betatech.learnspanish.data.model.db.*
 import org.json.JSONArray
@@ -8,14 +7,13 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
-import java.nio.charset.Charset
 
 object ParseJsonDataFile {
 
-    fun parse(context: Context): Triple<List<Exercise>, List<Lesson>, List<Quiz>> {
+    fun parse(context: Context): Triple<List<Exercise>, List<Lesson>, List<Question>> {
         val exercises = mutableListOf<Exercise>()
         val lessons = mutableListOf<Lesson>()
-        val quizzes = mutableListOf<Quiz>()
+        val questions = mutableListOf<Question>()
 
         try {
             val jsonObject = JSONObject(loadJsonFromAssets(context) ?: "")
@@ -31,9 +29,9 @@ object ParseJsonDataFile {
                         isCompleted = i == 0 // By default mark first one complete
                     )
 
-                    parseLessonFromExercise(exerciseJsonObject, exercise, lessons)
+                    parseLessonsFromExercise(exerciseJsonObject, exercise, lessons)
 
-                    parseQuizFromExercise(exerciseJsonObject, exercise, quizzes)
+                    parseQuestionsFromExercise(exerciseJsonObject, exercise, questions)
 
                     exercises.add(exercise)
                 }
@@ -46,7 +44,7 @@ object ParseJsonDataFile {
         return Triple(
             exercises,
             lessons,
-            quizzes
+            questions
         )
     }
 
@@ -72,7 +70,7 @@ object ParseJsonDataFile {
         return json
     }
 
-    private fun parseLessonFromExercise(
+    private fun parseLessonsFromExercise(
         exerciseJsonObject: JSONObject,
         exercise: Exercise,
         lessons: MutableList<Lesson>
@@ -111,31 +109,31 @@ object ParseJsonDataFile {
         return Examples(examples)
     }
 
-    private fun parseQuizFromExercise(
+    private fun parseQuestionsFromExercise(
         exerciseJsonObject: JSONObject,
         exercise: Exercise,
-        quizzes: MutableList<Quiz>
+        questions: MutableList<Question>
     ) {
         if (exerciseJsonObject.has("quiz")) {
             val quizJsonArray = exerciseJsonObject.getJSONArray("quiz")
             for (k in 0 until quizJsonArray.length()) {
-                val quizJsonObject = quizJsonArray.getJSONObject(k)
-                val quiz = Quiz(
-                    id = quizJsonObject.getString("id"),
+                val questionJsonObject = quizJsonArray.getJSONObject(k)
+                val question = Question(
+                    id = questionJsonObject.getString("id"),
                     exerciseId = exercise.id,
-                    questionNumber = quizJsonObject.getInt("question_number"),
-                    question = quizJsonObject.getString("question"),
-                    questionType = quizJsonObject.getString("type"),
-                    hint = quizJsonObject.getString("hint"),
-                    correctAnswer = quizJsonObject.getString("correct_answer"),
-                    options = parseOptionsFromQuiz(quizJsonObject.getJSONArray("options"))
+                    questionNumber = questionJsonObject.getInt("question_number"),
+                    question = questionJsonObject.getString("question"),
+                    questionType = questionJsonObject.getString("type"),
+                    hint = questionJsonObject.getString("hint"),
+                    correctAnswer = questionJsonObject.getString("correct_answer"),
+                    options = parseOptionsFromQuestion(questionJsonObject.getJSONArray("options"))
                 )
-                quizzes.add(quiz)
+                questions.add(question)
             }
         }
     }
 
-    private fun parseOptionsFromQuiz(optionsJsonArray: JSONArray): Options {
+    private fun parseOptionsFromQuestion(optionsJsonArray: JSONArray): Options {
         val options = mutableListOf<String>()
         for (i in 0 until optionsJsonArray.length()) {
             options.add(optionsJsonArray.getString(i))

@@ -1,10 +1,26 @@
 <resources>
+    <!-- ========================= Common ============================ -->
     <string name="app_name">Learn Spanish</string>
+    <string name="empty_string" translatable="false" />
+    <!-- ============================================================= -->
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- =============== Fragment Toolbar Titles ===================== -->
     <string name="exercises_fragment_title">Learn Spanish</string>
     <string name="lessons_fragment_title">Lessons</string>
-    <string name="no_lesson_available">No Lesson Available for this Exercise</string>
     <string name="quiz_fragment_title">Quiz</string>
+    <!-- ============================================================= -->
+
+    <!-- ===================== Lesson Fragment ======================= -->
+    <string name="no_lesson_available">No Lesson Available for this Exercise</string>
+    <!-- ============================================================= -->
+
+    <!-- ====================== Quiz Fragment ======================== -->
+    <string name="life_left_string">Life left %1$d</string>
+    <string name="check_answer_btn_title">Check</string>
+    <string name="next_question_btn_title">Continue</string>
+    <string name="enter_answer_hint">Enter answer</string>
+    <string name="correct_answer_msg">Correct Answer</string>
+    <string name="wrong_answer_msg">Wrong Answer</string>
+    <string name="display_correct_answer">Correct Answer is : %1$s</string>
+    <!-- ============================================================= -->
 </resources>

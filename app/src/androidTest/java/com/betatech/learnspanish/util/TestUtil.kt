@@ -40,8 +40,8 @@ object TestUtil {
         )
     )
 
-    fun createQuizzes(): List<Quiz> = listOf(
-        Quiz(
+    fun createQuiz(): List<Question> = listOf(
+        Question(
             id="QuizId123",
             exerciseId = EXERCISE_ID,
             questionNumber = 1,

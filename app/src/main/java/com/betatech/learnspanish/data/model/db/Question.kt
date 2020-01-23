@@ -7,11 +7,11 @@ import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 
 /**
- * [Quiz] class contain one question for [Exercise]
+ * [Question] class represents one question for [Exercise]
  * Each exercise contain 5-10 questions
  */
 @Entity(
-    tableName = "quizzes",
+    tableName = "questions",
     foreignKeys = [
         ForeignKey(
             entity = Exercise::class,
@@ -21,7 +21,7 @@ import androidx.room.PrimaryKey
         )
     ]
 )
-data class Quiz(
+data class Question(
     @PrimaryKey
     val id: String,
     val exerciseId: String,
@@ -34,7 +34,11 @@ data class Quiz(
     @ColumnInfo(name = "correct_answer")
     val correctAnswer: String,
     val options: Options
-)
+) {
+    override fun toString(): String {
+        return question
+    }
+}
 
 /**
  * Room cannot store List directly hence creating this middle pojo class

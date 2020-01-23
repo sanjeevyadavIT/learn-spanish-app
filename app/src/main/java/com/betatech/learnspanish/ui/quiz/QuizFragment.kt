@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.betatech.learnspanish.databinding.FragmentQuizBinding
 import com.betatech.learnspanish.helper.getViewModelFactory
@@ -36,6 +38,25 @@ class QuizFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         dataBinding.lifecycleOwner = this.viewLifecycleOwner
+        setupLiveObservers()
+    }
+
+    private fun setupLiveObservers() {
+        viewModel.questions.observe(this, Observer {
+            if (it != null && it.isNotEmpty()) {
+                viewModel.setupFirstQuestion()
+            }
+        })
+        viewModel.quizState.observe(this, Observer { quizState ->
+            when (quizState) {
+                QuizViewModel.QuizState.NOT_ANSWERED -> dataBinding.mcqAnswerView.rgOptions.clearCheck()
+                QuizViewModel.QuizState.COMPLETE -> findNavController().popBackStack()
+                QuizViewModel.QuizState.FAIL -> findNavController().popBackStack()
+                else -> {
+                    // do nothing
+                }
+            }
+        })
     }
 
 }

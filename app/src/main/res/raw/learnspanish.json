@@ -6,7 +6,7 @@
       "id": "5e01dcae0e9b410552996c8f",
       "exercise_number": 1,
       "title": "Spanish Alphabets",
-      "description": "Learn spanish alphabets and their pronounciation",
+      "description": "Learn spanish alphabets and their pronunciation",
       "lessons": [
         {
           "id": "5e01dcae8941c2463a7a918d",
@@ -58,7 +58,7 @@
         {
           "id": "5e01dcaeaf60ee949362503c",
           "question_number": 1,
-          "question": "Select correct pronounciation for <b>a</b>",
+          "question": "Select correct pronunciation for <b>a</b>",
           "type": "mcq",
           "hint": "",
           "correct_answer": "a",
@@ -72,21 +72,16 @@
         {
           "id": "5e01dcae87b20232f432ecde",
           "question_number": 2,
-          "question": "Select correct pronounciation for <b>b</b>",
-          "type": "mcq",
+          "question": "Type correct pronunciation for <b>b</b>",
+          "type": "type",
           "hint": "",
           "correct_answer": "be",
-          "options": [
-            "b",
-            "be",
-            "bee",
-            "ba"
-          ]
+          "options": []
         },
         {
           "id": "5e01dcae0803b2c03f3cee25",
           "question_number": 3,
-          "question": "Select correct pronounciation for <b>c</b>",
+          "question": "Select correct pronunciation for <b>c</b>",
           "type": "mcq",
           "hint": "",
           "correct_answer": "ce",
@@ -100,7 +95,7 @@
         {
           "id": "5e01dcaed67b7f27776bad38",
           "question_number": 4,
-          "question": "Select correct pronounciation for <b>d</b>",
+          "question": "Select correct pronunciation for <b>d</b>",
           "type": "mcq",
           "hint": "",
           "correct_answer": "de",
@@ -114,7 +109,7 @@
         {
           "id": "5e01dcaed68baa6ef48add80",
           "question_number": 5,
-          "question": "Select correct pronounciation for <b>e</b>",
+          "question": "Select correct pronunciation for <b>e</b>",
           "type": "mcq",
           "hint": "",
           "correct_answer": "e",
