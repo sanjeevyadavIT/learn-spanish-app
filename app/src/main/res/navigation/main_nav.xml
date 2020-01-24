@@ -34,5 +34,31 @@
         <argument
             android:name="exerciseId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_quizFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.betatech.learnspanish.ui.quiz.result.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result">
+        <action
+            android:id="@+id/action_resultFragment_to_exercisesFragment"
+            app:destination="@id/exercisesFragment" />
+        <action
+            android:id="@+id/action_resultFragment_to_quizFragment"
+            app:destination="@id/quizFragment"
+            app:popUpTo="@id/quizFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="lifeLeft"
+            app:argType="integer" />
+        <argument
+            android:name="quizResult"
+            app:argType="com.betatech.learnspanish.ui.quiz.result.ResultViewModel$QuizResult" />
+        <argument
+            android:name="exerciseId"
+            app:argType="string" />
     </fragment>
 </navigation>

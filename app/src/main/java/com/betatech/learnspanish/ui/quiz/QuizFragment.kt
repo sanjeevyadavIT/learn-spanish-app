@@ -14,18 +14,18 @@ import androidx.navigation.fragment.navArgs
 import com.betatech.learnspanish.R
 import com.betatech.learnspanish.databinding.FragmentQuizBinding
 import com.betatech.learnspanish.helper.getViewModelFactory
-import com.betatech.learnspanish.ui.lessons.LessonsFragmentArgs
+import com.betatech.learnspanish.ui.quiz.result.ResultViewModel
 
 /**
- * A simple [Fragment] subclass.
+ * Fragment to allow user to take quiz
  */
 class QuizFragment : Fragment() {
 
-    private val viewModel by viewModels<QuizViewModel> { getViewModelFactory(args.exerciseId) }
-
     private lateinit var dataBinding: FragmentQuizBinding
 
-    private val args: LessonsFragmentArgs by navArgs()
+    private val args: QuizFragmentArgs by navArgs()
+
+    private val viewModel by viewModels<QuizViewModel> { getViewModelFactory(args.exerciseId) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,13 +81,22 @@ class QuizFragment : Fragment() {
         viewModel.quizState.observe(this, Observer { quizState ->
             when (quizState) {
                 QuizViewModel.QuizState.NOT_ANSWERED -> dataBinding.mcqAnswerView.rgOptions.clearCheck()
-                QuizViewModel.QuizState.COMPLETE -> findNavController().popBackStack()
-                QuizViewModel.QuizState.FAIL -> findNavController().popBackStack()
+                QuizViewModel.QuizState.COMPLETE -> openResultFragment(ResultViewModel.QuizResult.SUCCESS)
+                QuizViewModel.QuizState.FAIL -> openResultFragment(ResultViewModel.QuizResult.FAILED)
                 else -> {
                     // do nothing
                 }
             }
         })
+    }
+
+    private fun openResultFragment(quizResult: ResultViewModel.QuizResult) {
+        val action = QuizFragmentDirections.actionQuizFragmentToResultFragment(
+            lifeLeft = viewModel.lifeLeft.value ?: 0,
+            exerciseId = args.exerciseId,
+            quizResult = quizResult
+        )
+        findNavController().navigate(action)
     }
 
 }

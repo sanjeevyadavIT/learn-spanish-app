@@ -126,7 +126,7 @@
             android:layout_marginBottom="16dp"
             android:enabled='@{"".equals(viewmodel.userAnswer) ? false : true}'
             android:onClick="@{viewmodel::checkAnswer}"
-            android:text="@{viewmodel.quizState == QuizState.NOT_ANSWERED ? @string/check_answer_btn_title : @string/next_question_btn_title}"
+            android:text="@{viewmodel.quizState == QuizState.NOT_ANSWERED ? @string/check_answer_btn_title : @string/continue_str}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/end_margin"
             app:layout_constraintStart_toStartOf="@+id/start_margin" />

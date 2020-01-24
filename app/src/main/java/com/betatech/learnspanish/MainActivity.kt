@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         )
         navController.addOnDestinationChangedListener { _, destination, _ ->
             toolbar.visibility =
-                if (destination.id == R.id.quizFragment) View.GONE else View.VISIBLE
+                if (destination.id == R.id.quizFragment || destination.id == R.id.resultFragment) View.GONE else View.VISIBLE
         }
     }
 }

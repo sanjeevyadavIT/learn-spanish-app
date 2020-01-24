@@ -3,6 +3,11 @@
     <string name="app_name">Learn Spanish</string>
     <string name="empty_string" translatable="false" />
     <string name="quit">Quit</string>
+    <string name="continue_str">Continue</string>
+    <string name="try_again">Try Again</string>
+    <string name="success">Success</string>
+    <string name="failed">Failed</string>
+    <string name="error">Error</string>
     <!-- ============================================================= -->
 
     <!-- =============== Fragment Toolbar Titles ===================== -->
@@ -17,7 +22,6 @@
 
     <!-- ====================== Quiz Fragment ======================== -->
     <string name="check_answer_btn_title">Check</string>
-    <string name="next_question_btn_title">Continue</string>
     <string name="enter_answer_hint">Enter answer</string>
     <string name="correct_answer_msg">Correct Answer</string>
     <string name="wrong_answer_msg">Wrong Answer</string>
@@ -25,5 +29,8 @@
     <string name="life_line_in_quiz_content_description">Life line in quiz</string>
     <string name="close_quiz_dialog_title">Are you sure about that?</string>
     <string name="close_quiz_dialog_message">All progress in this quiz will be lost.</string>
+    <!-- ============================================================= -->
+
+    <!-- ===================== Result Fragment ======================= -->
     <!-- ============================================================= -->
 </resources>
