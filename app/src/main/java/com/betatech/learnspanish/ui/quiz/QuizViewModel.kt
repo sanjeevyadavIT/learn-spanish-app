@@ -30,6 +30,11 @@ class QuizViewModel(
         COMPLETE // All question has been answered
     }
 
+    companion object {
+        const val LIFELINE_PER_QUIZ = 3
+    }
+
+
     val questions = repository.getQuestionsByExerciseId(exerciseId ?: "")
 
     private val _currentQuestionIndex = MutableLiveData(0)
@@ -49,7 +54,7 @@ class QuizViewModel(
      * On forth incorrect answer, quiz will stop and have to played from
      * start.
      */
-    private val _lifeLeft = MutableLiveData(3)
+    private val _lifeLeft = MutableLiveData(LIFELINE_PER_QUIZ)
     val lifeLeft: LiveData<Int> = _lifeLeft
 
     private val _quizState = MutableLiveData<QuizState>(QuizState.NOT_ANSWERED)
@@ -185,6 +190,5 @@ class QuizViewModel(
         _userAnswer.value = ""
         _currentQuestionIndex.value = _currentQuestionIndex.value?.plus(1)
     }
-
 
 }

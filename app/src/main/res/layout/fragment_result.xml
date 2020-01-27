@@ -60,5 +60,33 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_xp_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{@string/xp_points_gain(viewmodel.xp)}"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="@{viewmodel.quizResult == QuizResult.SUCCESS ? View.VISIBLE : View.GONE, default = gone}"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:text="Practice Complete! 10 XP"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{``+viewmodel.totalXP}"
+            android:visibility="@{viewmodel.quizResult == QuizResult.SUCCESS ? View.VISIBLE : View.GONE, default = gone}"
+            tools:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@+id/tv_xp_points"
+            app:layout_constraintStart_toEndOf="@+id/tv_xp_points"
+            app:layout_constraintTop_toBottomOf="@+id/tv_xp_points"
+            tools:text="Total XP 100" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

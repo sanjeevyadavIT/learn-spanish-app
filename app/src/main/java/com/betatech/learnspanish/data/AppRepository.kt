@@ -2,6 +2,7 @@ package com.betatech.learnspanish.data
 
 import androidx.lifecycle.LiveData
 import com.betatech.learnspanish.data.local.db.DbHelper
+import com.betatech.learnspanish.data.local.prefs.PreferencesHelper
 import com.betatech.learnspanish.data.model.db.Exercise
 import com.betatech.learnspanish.data.model.db.Lesson
 import com.betatech.learnspanish.data.model.db.Question
@@ -12,6 +13,7 @@ import kotlinx.coroutines.withContext
 
 class AppRepository (
     private val dbHelper: DbHelper,
+    private val preferencesHelper: PreferencesHelper,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : Repository {
 
@@ -36,4 +38,14 @@ class AppRepository (
 
     override fun getQuestionsByExerciseId(exerciseId: String): LiveData<List<Question>> =
         dbHelper.getQuestionsByExerciseId(exerciseId)
+
+    /**
+     * I don't think, there is need to wrap
+     * preference code into a coroutine (Need more research)
+     */
+    override fun addXp(value: Int) {
+        preferencesHelper.addXp(value)
+    }
+
+    override fun getXp(): Int = preferencesHelper.getXp()
 }

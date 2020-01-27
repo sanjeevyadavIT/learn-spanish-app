@@ -6,7 +6,7 @@ import com.betatech.learnspanish.data.model.db.Lesson
 import com.betatech.learnspanish.data.model.db.Question
 
 /**
- * All database related function
+ * All database related functions
  */
 interface DbHelper{
     /**
