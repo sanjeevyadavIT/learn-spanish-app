@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_exercisesFragment_to_lessonsFragment"
             app:destination="@id/lessonsFragment" />
+        <action
+            android:id="@+id/action_exercisesFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/lessonsFragment"
@@ -61,4 +64,16 @@
             android:name="exerciseId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.betatech.learnspanish.ui.settings.SettingsFragment"
+        android:label="@string/settings_fragment_title">
+        <action
+            android:id="@+id/action_settingsFragment_to_timePickerFragment"
+            app:destination="@id/timePickerFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/timePickerFragment"
+        android:name="com.betatech.learnspanish.ui.settings.TimePickerFragment"
+        android:label="TimePickerFragment" />
 </navigation>

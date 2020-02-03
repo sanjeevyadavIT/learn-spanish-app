@@ -40,6 +40,7 @@ dependencies {
     def lifecycle_version = "2.1.0"
     def testing_version = "2.1.0"
     def coroutine_version = "1.0.0"
+    def preference_version = "1.1.0"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -55,6 +56,10 @@ dependencies {
     // Navigational Component
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Preference settings
+    implementation "androidx.preference:preference:$preference_version"
+
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"

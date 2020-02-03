@@ -2,20 +2,13 @@ package com.betatech.learnspanish.ui.exercises
 
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-
-import com.betatech.learnspanish.data.AppRepository
-import com.betatech.learnspanish.data.local.db.AppDatabase
-import com.betatech.learnspanish.data.local.db.AppDbHelper
+import com.betatech.learnspanish.R
 import com.betatech.learnspanish.databinding.FragmentExercisesBinding
-import com.betatech.learnspanish.helper.ViewModelFactory
 import com.betatech.learnspanish.helper.getViewModelFactory
 
 /**
@@ -35,6 +28,7 @@ class ExercisesFragment : Fragment() {
         dataBinding = FragmentExercisesBinding.inflate(inflater, container, false).apply {
             viewmodel = viewModel
         }
+        setHasOptionsMenu(true)
         return dataBinding.root
     }
 
@@ -44,6 +38,21 @@ class ExercisesFragment : Fragment() {
         setupListAdapter()
         setupLiveObservers()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                openSettingsFragment()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 
     private fun setupLiveObservers() {
         viewModel.exercises.observe(this, Observer {
@@ -61,6 +70,11 @@ class ExercisesFragment : Fragment() {
     private fun openLessonsFragment(exerciseId: String) {
         val action =
             ExercisesFragmentDirections.actionExercisesFragmentToLessonsFragment(exerciseId)
+        findNavController().navigate(action)
+    }
+
+    private fun openSettingsFragment() {
+        val action = ExercisesFragmentDirections.actionExercisesFragmentToSettingsFragment()
         findNavController().navigate(action)
     }
 

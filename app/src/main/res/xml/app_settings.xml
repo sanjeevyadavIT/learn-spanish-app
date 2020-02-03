@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <PreferenceCategory android:title="@string/notification">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="preference_notification"
+            android:title="@string/preference_notification_title" />
+
+        <Preference
+            android:key="preference_notification_time"
+            android:title="@string/preference_notification_time_title"
+            android:defaultValue="21:0"
+            tools:summary="8:00 PM" />
+    </PreferenceCategory>
+</PreferenceScreen>
