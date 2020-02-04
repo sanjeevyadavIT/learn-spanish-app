@@ -32,7 +32,7 @@ class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener 
                 PreferenceManager.getDefaultSharedPreferences(activity /* Activity context */)
             val (hour, minute) = sharedPreferences.getString(
                 SettingsFragment.NOTIFICATION_TIME_PREFERENCE_KEY,
-                SettingsFragment.DFAULT_NOTIFICATION_TIME
+                SettingsFragment.DEFAULT_NOTIFICATION_TIME
             )!!.split(":")
             c.set(Calendar.HOUR_OF_DAY, hour.toInt())
             c.set(Calendar.MINUTE, minute.toInt())

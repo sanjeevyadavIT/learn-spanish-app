@@ -10,6 +10,15 @@
 
 Learn spanish is an Android app, that helps you learn spanish easily.
 
+## :camera: Screenshots
+
+<div style="display:flex;" >
+  <img  src=".github/screenshots/1.png" width="19%" >
+  <img style="margin-left:10px;" src=".github/screenshots/2.png" width="19%" >
+  <img style="margin-left:10px;" src=".github/screenshots/3.png" width="19%" >
+  <img style="margin-left:10px;" src=".github/screenshots/4.png" width="19%" >
+</div>
+
 ## 📲 Installation
 
 1. clone the project

@@ -36,6 +36,8 @@
 
     <!-- ===================== Result Fragment ======================= -->
     <string name="xp_points_gain">Practice Complete! %1$s XP</string>
+    <string name="total_xp">Total XP = %1$d XP</string>
+    <string name="streak_count">Streak = %1$d</string>
     <!-- ============================================================= -->
 
     <!-- ==================== Settings Fragment ====================== -->

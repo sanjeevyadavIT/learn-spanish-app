@@ -92,8 +92,8 @@ object NotificationUtil {
         val calendar: Calendar = Calendar.getInstance()
         val scheduleTime: String = PreferenceManager.getDefaultSharedPreferences(context).getString(
             SettingsFragment.NOTIFICATION_TIME_PREFERENCE_KEY,
-            SettingsFragment.DFAULT_NOTIFICATION_TIME
-        ) ?: SettingsFragment.DFAULT_NOTIFICATION_TIME
+            SettingsFragment.DEFAULT_NOTIFICATION_TIME
+        ) ?: SettingsFragment.DEFAULT_NOTIFICATION_TIME
         val (hour, minute) = scheduleTime.split(":")
         calendar.set(Calendar.HOUR_OF_DAY, hour.toInt())
         calendar.set(Calendar.MINUTE, minute.toInt())

@@ -16,7 +16,7 @@ class RescheduleNotificationAfterBoot : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action == "android.intent.action.BOOT_COMPLETED") {
             val notificationOn = PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean(SettingsFragment.NOTIFICATION_PREFERENCE_KEY, false)
+                .getBoolean(SettingsFragment.NOTIFICATION_ON_PREFERENCE_KEY, false)
 
             if (notificationOn) {
                 NotificationUtil.scheduleAlarmToTriggerNotification(context)

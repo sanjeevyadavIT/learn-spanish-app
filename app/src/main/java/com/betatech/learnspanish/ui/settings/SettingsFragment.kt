@@ -20,9 +20,9 @@ class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceClic
     SharedPreferences.OnSharedPreferenceChangeListener {
 
     companion object {
-        const val NOTIFICATION_PREFERENCE_KEY = "preference_notification"
+        const val NOTIFICATION_ON_PREFERENCE_KEY = "preference_notification"
         const val NOTIFICATION_TIME_PREFERENCE_KEY = "preference_notification_time"
-        const val DFAULT_NOTIFICATION_TIME = "21:0"
+        const val DEFAULT_NOTIFICATION_TIME = "21:0"
     }
 
     private var notificationSwitchPreference: SwitchPreference? = null
@@ -61,16 +61,16 @@ class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceClic
                     TimeUtils.formatTimeSavedInPreference(
                         prefs?.getString(
                             pref_key,
-                            DFAULT_NOTIFICATION_TIME
+                            DEFAULT_NOTIFICATION_TIME
                         )
                     )
                 val isNotificationOn =
-                    prefs?.getBoolean(NOTIFICATION_PREFERENCE_KEY, false) ?: false
+                    prefs?.getBoolean(NOTIFICATION_ON_PREFERENCE_KEY, false) ?: false
                 if (isNotificationOn) {
                     context?.let { NotificationUtil.scheduleAlarmToTriggerNotification(it) }
                 }
             }
-            NOTIFICATION_PREFERENCE_KEY -> {
+            NOTIFICATION_ON_PREFERENCE_KEY -> {
                 val value = prefs?.getBoolean(pref_key, false) ?: false
                 context?.let {
                     NotificationUtil.toggleNotificationRestartAfterBoot(it, value)
@@ -85,7 +85,7 @@ class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceClic
     }
 
     private fun init() {
-        notificationSwitchPreference = findPreference(NOTIFICATION_PREFERENCE_KEY)
+        notificationSwitchPreference = findPreference(NOTIFICATION_ON_PREFERENCE_KEY)
         notificationTimePreference = findPreference(NOTIFICATION_TIME_PREFERENCE_KEY)
     }
 
@@ -102,7 +102,7 @@ class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceClic
     private fun setupInitialSummary() {
         notificationTimePreference?.summary = TimeUtils.formatTimeSavedInPreference(
             preferenceManager.sharedPreferences.getString(
-                NOTIFICATION_TIME_PREFERENCE_KEY, DFAULT_NOTIFICATION_TIME
+                NOTIFICATION_TIME_PREFERENCE_KEY, DEFAULT_NOTIFICATION_TIME
             )
         )
     }

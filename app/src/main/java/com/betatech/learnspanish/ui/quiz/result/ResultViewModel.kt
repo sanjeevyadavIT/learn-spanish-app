@@ -2,6 +2,7 @@ package com.betatech.learnspanish.ui.quiz.result
 
 import androidx.lifecycle.ViewModel
 import com.betatech.learnspanish.data.Repository
+import com.betatech.learnspanish.helper.TimeUtils
 import com.betatech.learnspanish.ui.quiz.QuizViewModel
 
 class ResultViewModel(
@@ -22,11 +23,24 @@ class ResultViewModel(
 
     val xp = XP_PER_QUIZ - (QuizViewModel.LIFELINE_PER_QUIZ - lifeLeft)
     val totalXP = repository.getXp() + if (quizResult == QuizResult.SUCCESS) xp else 0
+    var streakCount: Int = -1
 
     init {
         if (quizResult == QuizResult.SUCCESS) {
             repository.addXp(xp)
-        }
+            val lastPracticeDate = repository.getPracticeDate()
+            repository.updatePracticeDate(TimeUtils.getCurrentDate())
+            if (lastPracticeDate == null) {
+                repository.incrementStreak()
+            } else {
+                val differenceOfDays =
+                    TimeUtils.subtractDates(TimeUtils.getCurrentDate(), lastPracticeDate)
+                if (differenceOfDays > 0) {
+                    repository.incrementStreak()
+                }
+            }
+            streakCount = repository.getStreak()
 
+        }
     }
 }

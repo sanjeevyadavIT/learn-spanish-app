@@ -81,12 +81,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@{``+viewmodel.totalXP}"
+            android:text="@{@string/total_xp(viewmodel.totalXP)}"
             android:visibility="@{viewmodel.quizResult == QuizResult.SUCCESS ? View.VISIBLE : View.GONE, default = gone}"
             tools:visibility="visible"
             app:layout_constraintEnd_toStartOf="@+id/tv_xp_points"
             app:layout_constraintStart_toEndOf="@+id/tv_xp_points"
             app:layout_constraintTop_toBottomOf="@+id/tv_xp_points"
             tools:text="Total XP 100" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{@string/streak_count(viewmodel.streakCount)}"
+            app:layout_constraintEnd_toEndOf="@+id/tv_xp_points"
+            app:layout_constraintStart_toStartOf="@+id/tv_xp_points"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

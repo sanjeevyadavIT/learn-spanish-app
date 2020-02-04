@@ -9,6 +9,7 @@ import com.betatech.learnspanish.data.model.db.Question
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.*
 
 
 class AppRepository (
@@ -48,4 +49,20 @@ class AppRepository (
     }
 
     override fun getXp(): Int = preferencesHelper.getXp()
+
+    override fun updatePracticeDate(date: Date) {
+        preferencesHelper.updatePracticeDate(date)
+    }
+
+    override fun getPracticeDate(): Date? = preferencesHelper.getPracticeDate()
+
+    override fun incrementStreak() {
+        preferencesHelper.incrementStreak()
+    }
+
+    override fun resetStreak() {
+        preferencesHelper.resetStreak()
+    }
+
+    override fun getStreak(): Int = preferencesHelper.getStreak()
 }
