@@ -18,7 +18,7 @@ import androidx.room.PrimaryKey
  * @param exerciseNumber serial number of the exercise
  * @param title          title of the exercise
  * @param description    description of the exercise
- * @param isCompleted    whether the exercise has been completed or not
+ * @param isUnlocked     whether the exercise has been unlocked or not
  */
 @Entity(tableName = "exercises")
 data class Exercise(
@@ -28,5 +28,5 @@ data class Exercise(
     val exerciseNumber: Int,
     val title: String,
     val description: String,
-    val isCompleted: Boolean = false
+    val isUnlocked: Boolean = false
 )

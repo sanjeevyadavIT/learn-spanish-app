@@ -22,6 +22,7 @@
     <!-- ===================== Lesson Fragment ======================= -->
     <string name="no_lesson_available">No Lesson Available for this Exercise</string>
     <string name="phonetics">[%1$s]</string>
+    <string name="lesson_is_locked_msg">Complete previous exercise, to unlock!</string>
     <!-- ============================================================= -->
 
     <!-- ====================== Quiz Fragment ======================== -->

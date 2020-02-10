@@ -3,7 +3,9 @@ package com.betatech.learnspanish.ui.exercises
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.betatech.learnspanish.R
 import com.betatech.learnspanish.data.model.db.Exercise
 import com.betatech.learnspanish.databinding.ExerciseItemBinding
 
@@ -52,7 +54,12 @@ class ExercisesAdapter(
 
         override fun onClick(p0: View?) {
             exercises?.apply {
-                onClick(this[adapterPosition].id)
+                if (this[adapterPosition].isUnlocked) {
+                    onClick(this[adapterPosition].id)
+                } else {
+                    Toast.makeText(p0!!.context, R.string.lesson_is_locked_msg, Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         }
     }

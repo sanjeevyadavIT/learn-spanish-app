@@ -25,6 +25,13 @@ interface DbHelper{
     fun getExercises(): LiveData<List<Exercise>>
 
     /**
+     * Unlock next exercise for practice
+     *
+     * @param previousExerciseId id of the exercise which was completed
+     */
+    suspend fun unlockNextExercise(previousExerciseId: String)
+
+    /**
      * Save all lessons in database
      *
      * @param lessons list of lesson which need to be saved

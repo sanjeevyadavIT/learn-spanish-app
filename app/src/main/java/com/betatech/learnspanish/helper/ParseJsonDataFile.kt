@@ -26,7 +26,7 @@ object ParseJsonDataFile {
                         exerciseNumber = exerciseJsonObject.getInt("exercise_number"),
                         title = exerciseJsonObject.getString("title"),
                         description = exerciseJsonObject.getString("description"),
-                        isCompleted = i == 0 // By default mark first one complete
+                        isUnlocked = i == 0 // By default mark first one unlocked
                     )
 
                     parseLessonsFromExercise(exerciseJsonObject, exercise, lessons)

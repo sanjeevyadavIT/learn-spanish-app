@@ -25,6 +25,12 @@ class AppRepository (
     override fun getExercises(): LiveData<List<Exercise>> =
         dbHelper.getExercises()
 
+    override suspend fun unlockNextExercise(previousExerciseId: String) {
+        withContext(ioDispatcher) {
+            dbHelper.unlockNextExercise(previousExerciseId)
+        }
+    }
+
     override suspend fun insertLessons(lessons: List<Lesson>): List<Long> = withContext(ioDispatcher) {
         dbHelper.insertLessons(lessons)
     }

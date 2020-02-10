@@ -30,6 +30,9 @@ class AppDbHelper private constructor(
     override fun getExercises(): LiveData<List<Exercise>> =
         appDatabase.exerciseDao().getExercises()
 
+    override suspend fun unlockNextExercise(previousExerciseId: String) {
+        appDatabase.exerciseDao().unlockNextExercise(previousExerciseId)
+    }
 
     override suspend fun insertLessons(lessons: List<Lesson>): List<Long> =
         appDatabase.lessonDao().insertAll(lessons)

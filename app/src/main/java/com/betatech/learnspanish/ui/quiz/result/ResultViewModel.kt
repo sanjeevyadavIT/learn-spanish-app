@@ -1,9 +1,11 @@
 package com.betatech.learnspanish.ui.quiz.result
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.betatech.learnspanish.data.Repository
 import com.betatech.learnspanish.helper.TimeUtils
 import com.betatech.learnspanish.ui.quiz.QuizViewModel
+import kotlinx.coroutines.launch
 
 class ResultViewModel(
     repository: Repository,
@@ -49,6 +51,13 @@ class ResultViewModel(
                 if (differenceOfDays > 0) {
                     repository.incrementStreak()
                 }
+            }
+            /**
+             * NOTE: Unnecessary db operation will occur, if user is
+             * taking quiz for the second time
+             */
+            viewModelScope.launch {
+                exerciseId?.let { repository.unlockNextExercise(previousExerciseId = it) }
             }
         } else {
             val lastPracticeDate = repository.getPracticeDate()
