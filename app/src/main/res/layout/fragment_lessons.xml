@@ -14,64 +14,113 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/frameLayout2"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.lessons.LessonsFragment">
+        android:fillViewport="true"
+        android:layout_height="match_parent">
 
-        <!-- TODO: Update blank fragment layout -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/frameLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.lessons.LessonsFragment">
 
-        <TextView
-            android:id="@+id/tv_phrase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Abuela"
-            android:text="@{viewmodel.lesson.phrase?? ``}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/start_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="16dp" />
 
-        <TextView
-            android:id="@+id/tv_translation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewmodel.lesson.translation?? ``}"
-            tools:text="Grandmother"
-            app:layout_constraintStart_toStartOf="@+id/tv_phrase"
-            app:layout_constraintTop_toBottomOf="@+id/tv_phrase" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/end_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="16dp" />
 
-        <Button
-            android:id="@+id/btn_previous"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Previous"
-            android:visibility="@{viewmodel.isPreviousButtonVisible() ? View.VISIBLE : View.INVISIBLE, default = invisible}"
-            android:onClick="@{() -> viewmodel.previousLesson()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_quiz"
-            app:layout_constraintStart_toEndOf="@+id/tv_phrase"
-            app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/tv_phrase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="64dp"
+                android:text="@{viewmodel.lesson.phrase?? ``}"
+                android:textColor="@android:color/black"
+                android:textSize="32sp"
+                app:layout_constraintEnd_toStartOf="@+id/end_margin"
+                app:layout_constraintStart_toStartOf="@+id/start_margin"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Abuela" />
 
-        <Button
-            android:id="@+id/btn_quiz"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Quiz"
-            android:enabled="@{viewmodel.isQuizButtonEnabled()}"
-            app:layout_constraintEnd_toStartOf="@+id/btn_next"
-            app:layout_constraintStart_toEndOf="@+id/btn_previous"
-            app:layout_constraintTop_toTopOf="@+id/btn_previous" />
+            <TextView
+                android:id="@+id/tv_translation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{viewmodel.lesson.translation?? ``}"
+                app:layout_constraintEnd_toEndOf="@+id/tv_phrase"
+                app:layout_constraintStart_toStartOf="@+id/tv_phrase"
+                app:layout_constraintTop_toBottomOf="@+id/tv_phrase"
+                tools:text="Grandmother" />
 
-        <Button
-            android:id="@+id/btn_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Next"
-            android:visibility="@{viewmodel.isNextButtonVisible() ? View.VISIBLE : View.INVISIBLE, default = invisible}"
-            android:onClick="@{() -> viewmodel.nextLesson()}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_quiz"
-            app:layout_constraintTop_toTopOf="@+id/btn_quiz" />
+            <ImageButton
+                android:id="@+id/ib_sound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="64dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/ic_phonetics"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="@+id/start_margin"
+                app:layout_constraintTop_toBottomOf="@+id/tv_translation"
+                app:srcCompat="@drawable/ic_sound" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/ic_phonetics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                tools:text="[abuela]"
+                android:text="@{@string/phonetics(viewmodel.lesson.phonetics ?? ``)}"
+                app:layout_constraintBottom_toBottomOf="@+id/ib_sound"
+                app:layout_constraintEnd_toStartOf="@+id/end_margin"
+                app:layout_constraintStart_toEndOf="@id/ib_sound"
+                app:layout_constraintTop_toTopOf="@+id/ib_sound" />
+
+            <Button
+                android:id="@+id/btn_previous"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewmodel.previousLesson()}"
+                android:text="Previous"
+                android:visibility="@{viewmodel.isPreviousButtonVisible() ? View.VISIBLE : View.INVISIBLE, default = invisible}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_quiz"
+                app:layout_constraintStart_toEndOf="@+id/tv_phrase"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/btn_quiz"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:enabled="@{viewmodel.isQuizButtonEnabled()}"
+                android:text="Quiz"
+                app:layout_constraintEnd_toStartOf="@+id/btn_next"
+                app:layout_constraintStart_toEndOf="@+id/btn_previous"
+                app:layout_constraintTop_toTopOf="@+id/btn_previous" />
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewmodel.nextLesson()}"
+                android:text="Next"
+                android:visibility="@{viewmodel.isNextButtonVisible() ? View.VISIBLE : View.INVISIBLE, default = invisible}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_quiz"
+                app:layout_constraintTop_toTopOf="@+id/btn_quiz" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 </layout>

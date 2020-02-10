@@ -21,6 +21,7 @@
 
     <!-- ===================== Lesson Fragment ======================= -->
     <string name="no_lesson_available">No Lesson Available for this Exercise</string>
+    <string name="phonetics">[%1$s]</string>
     <!-- ============================================================= -->
 
     <!-- ====================== Quiz Fragment ======================== -->

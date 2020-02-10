@@ -7,12 +7,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.betatech.learnspanish.R
 import com.betatech.learnspanish.databinding.FragmentExercisesBinding
 import com.betatech.learnspanish.helper.getViewModelFactory
 
 /**
- * A simple [Fragment] subclass.
+ * First Fragment the user see, which contains
+ * all the exercise list.
  */
 class ExercisesFragment : Fragment() {
 
@@ -35,6 +38,7 @@ class ExercisesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         dataBinding.lifecycleOwner = this.viewLifecycleOwner
+        setupRecyclerView()
         setupListAdapter()
         setupLiveObservers()
     }
@@ -58,6 +62,11 @@ class ExercisesFragment : Fragment() {
         viewModel.exercises.observe(this, Observer {
             exercisesAdapter.refreshData(it)
         })
+    }
+
+    private fun setupRecyclerView() {
+        // layout manager is setup in xml
+        dataBinding.exercisesList.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
     }
 
     private fun setupListAdapter() {
