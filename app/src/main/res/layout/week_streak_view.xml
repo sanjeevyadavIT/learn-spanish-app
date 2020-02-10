@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <import type="com.betatech.learnspanish.ui.quiz.result.ResultViewModel.QuizResult" />
+
+        <variable
+            name="viewmodel"
+            type="com.betatech.learnspanish.ui.quiz.result.ResultViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_sunday"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:background="@{viewmodel.dayOfWeek == 1 &amp;&amp; viewmodel.todayStreakDone ? @drawable/orange_circle_outline : @drawable/grey_circle_outline}"
+            android:textColor="@{viewmodel.dayOfWeek == 1 &amp;&amp; viewmodel.todayStreakDone ? @color/orange : @color/text_color_grey}"
+            tools:background="@drawable/grey_circle_outline"
+            android:text="S" />
+
+        <TextView
+            android:id="@+id/tv_monday"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:textSize="18sp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:background="@{viewmodel.dayOfWeek == 2 &amp;&amp; viewmodel.todayStreakDone ? @drawable/orange_circle_outline : @drawable/grey_circle_outline}"
+            android:textColor="@{viewmodel.dayOfWeek == 2 &amp;&amp; viewmodel.todayStreakDone ? @color/orange : @color/text_color_grey}"
+            tools:background="@drawable/grey_circle_outline"
+            android:text="M" />
+
+        <TextView
+            android:id="@+id/tv_tuesday"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:textSize="18sp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:background="@{viewmodel.dayOfWeek == 3 &amp;&amp; viewmodel.todayStreakDone ? @drawable/orange_circle_outline : @drawable/grey_circle_outline}"
+            android:textColor="@{viewmodel.dayOfWeek == 3 &amp;&amp; viewmodel.todayStreakDone ? @color/orange : @color/text_color_grey}"
+            tools:background="@drawable/grey_circle_outline"
+            android:text="T" />
+
+        <TextView
+            android:id="@+id/tv_wednesday"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:background="@{viewmodel.dayOfWeek == 4 &amp;&amp; viewmodel.todayStreakDone ? @drawable/orange_circle_outline : @drawable/grey_circle_outline}"
+            android:textColor="@{viewmodel.dayOfWeek == 4 &amp;&amp; viewmodel.todayStreakDone ? @color/orange : @color/text_color_grey}"
+            tools:background="@drawable/grey_circle_outline"
+            android:text="W" />
+
+        <TextView
+            android:id="@+id/tv_thursday"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:background="@{viewmodel.dayOfWeek == 5 &amp;&amp; viewmodel.todayStreakDone ? @drawable/orange_circle_outline : @drawable/grey_circle_outline}"
+            android:textColor="@{viewmodel.dayOfWeek == 5 &amp;&amp; viewmodel.todayStreakDone ? @color/orange : @color/text_color_grey}"
+            tools:background="@drawable/grey_circle_outline"
+            android:text="T" />
+
+        <TextView
+            android:id="@+id/tv_friday"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:background="@{viewmodel.dayOfWeek == 6 &amp;&amp; viewmodel.todayStreakDone ? @drawable/orange_circle_outline : @drawable/grey_circle_outline}"
+            android:textColor="@{viewmodel.dayOfWeek == 6 &amp;&amp; viewmodel.todayStreakDone ? @color/orange : @color/text_color_grey}"
+            android:layout_marginStart="8dp"
+            tools:background="@drawable/grey_circle_outline"
+            android:text="F" />
+
+        <TextView
+            android:id="@+id/tv_saturday"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:background="@{viewmodel.dayOfWeek == 7 &amp;&amp; viewmodel.todayStreakDone ? @drawable/orange_circle_outline : @drawable/grey_circle_outline}"
+            android:textColor="@{viewmodel.dayOfWeek == 7 &amp;&amp; viewmodel.todayStreakDone ? @color/orange : @color/text_color_grey}"
+            tools:background="@drawable/orange_circle_outline"
+            tools:textColor="@color/text_color_grey"
+            android:text="S" />
+    </LinearLayout>
+
+</layout>

@@ -12,6 +12,14 @@ class ResultViewModel(
     lifeLeft: Int
 ) : ViewModel() {
 
+    // SUNDAY = 1
+    // MONDAY = 2
+    // TUESDAY = 3
+    // WEDNESDAY = 4
+    // THURSDAY = 5
+    // FRIDAY = 6
+    // SATURDAY = 7
+
     enum class QuizResult {
         SUCCESS, // Quiz was completed, show streaks and scores
         FAILED // Quiz wasn't completed, show failed message
@@ -24,12 +32,15 @@ class ResultViewModel(
     val xp = XP_PER_QUIZ - (QuizViewModel.LIFELINE_PER_QUIZ - lifeLeft)
     val totalXP = repository.getXp() + if (quizResult == QuizResult.SUCCESS) xp else 0
     var streakCount: Int = -1
+    val dayOfWeek:Int = TimeUtils.getCurrentDayOfWeek()
+    var todayStreakDone = false
 
     init {
         if (quizResult == QuizResult.SUCCESS) {
             repository.addXp(xp)
             val lastPracticeDate = repository.getPracticeDate()
             repository.updatePracticeDate(TimeUtils.getCurrentDate())
+            todayStreakDone = true
             if (lastPracticeDate == null) {
                 repository.incrementStreak()
             } else {
@@ -39,8 +50,17 @@ class ResultViewModel(
                     repository.incrementStreak()
                 }
             }
-            streakCount = repository.getStreak()
-
+        } else {
+            val lastPracticeDate = repository.getPracticeDate()
+            if(lastPracticeDate != null) {
+                val differenceOfDays =
+                    TimeUtils.subtractDates(TimeUtils.getCurrentDate(), lastPracticeDate)
+                if(differenceOfDays == 0) {
+                    todayStreakDone = true
+                }
+            }
         }
+
+        streakCount = repository.getStreak()
     }
 }

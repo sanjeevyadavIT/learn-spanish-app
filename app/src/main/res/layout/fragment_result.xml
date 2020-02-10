@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -21,7 +22,7 @@
         tools:context=".ui.quiz.result.ResultFragment">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tv_quiz_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewmodel.quizResult == QuizResult.SUCCESS ? @string/success : @string/failed}"
@@ -35,6 +36,17 @@
             app:layout_constraintVertical_bias="0.24000001"
             tools:text="SUCCESS"
             tools:textColor="@color/success" />
+
+        <include
+            android:id="@+id/weak_streak_view"
+            layout="@layout/week_streak_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            bind:viewmodel="@{viewmodel}"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_quiz_result"
+            app:layout_constraintStart_toStartOf="@+id/tv_quiz_result"
+            app:layout_constraintTop_toBottomOf="@+id/tv_quiz_result" />
 
         <Button
             android:id="@+id/btn_try_again"
@@ -70,14 +82,14 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:visibility="@{viewmodel.quizResult == QuizResult.SUCCESS ? View.VISIBLE : View.GONE, default = gone}"
-            app:layout_constraintEnd_toEndOf="@+id/textView"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="@+id/tv_quiz_result"
+            app:layout_constraintStart_toStartOf="@+id/tv_quiz_result"
+            app:layout_constraintTop_toBottomOf="@+id/weak_streak_view"
             tools:text="Practice Complete! 10 XP"
             tools:visibility="visible" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tv_total_xp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -90,13 +102,14 @@
             tools:text="Total XP 100" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tv_streak_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="@{@string/streak_count(viewmodel.streakCount)}"
             app:layout_constraintEnd_toEndOf="@+id/tv_xp_points"
             app:layout_constraintStart_toStartOf="@+id/tv_xp_points"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_total_xp"
+            tools:text="Total Streak : 4" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

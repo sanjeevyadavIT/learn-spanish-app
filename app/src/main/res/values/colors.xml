@@ -6,4 +6,6 @@
     <color name="success">#4caf50</color>
     <color name="error">#f44336</color>
     <color name="grey">#9E9E9E</color>
+    <color name="orange">#FF5722</color>
+    <color name="text_color_grey">#757575</color>
 </resources>

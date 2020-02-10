@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.betatech.learnspanish.databinding.FragmentResultBinding
 import com.betatech.learnspanish.helper.getResultViewModelFactory
+import java.util.*
 
 /**
  * Fragment that shows the result of the quiz
